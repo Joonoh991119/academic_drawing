@@ -84,5 +84,5 @@ appropriateness given `eqs.qc.json`, vision = legibility). Avoid CodeCogs and th
 
 ## Files
 - `scripts/overlap_check.py` — headless-Chrome geometry measurement + rectangle-intersection collision detection.
-- `scripts/pptx_style_lint.py` — deterministic deck palette / label-color / ≤N-hue / font gate (python-pptx).
+- `scripts/pptx_style_lint.py` — deterministic deck palette / label-color / ≤N-hue / font / token-overload gate + a heuristic text-overflow estimate (WARN — the rendered vision pass confirms it) (python-pptx).
 - `scripts/equation_qc.py` — mathtext parse + sympy symbolic/undefined-symbol gate for equations.

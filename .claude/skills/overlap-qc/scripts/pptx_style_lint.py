@@ -170,6 +170,52 @@ def iter_runs(shape):
             yield run, para
 
 
+def overflow_findings(prs):
+    """Conservative heuristic: text that plausibly exceeds its fixed box -> WARN. Approximate (Arial
+    ~0.5em/char, 20% tolerance) so it under-flags rather than cries wolf; the rendered vision pass is
+    authoritative. Skips auto-fit text frames and shapes without a fixed size. This fills the gap that
+    pptx_style_lint's XML checks (palette/fonts/hues) cannot see text spilling out of fixed cards."""
+    import math
+    try:
+        from pptx.enum.text import MSO_AUTO_SIZE
+        AUTOFIT = {MSO_AUTO_SIZE.SHAPE_TO_FIT_TEXT, MSO_AUTO_SIZE.TEXT_TO_FIT_SHAPE}
+    except Exception:
+        AUTOFIT = set()
+    out = []
+    for s_idx, slide in enumerate(prs.slides, start=1):
+        for shape in slide.shapes:
+            if not getattr(shape, "has_text_frame", False):
+                continue
+            tf = shape.text_frame
+            try:
+                if tf.auto_size in AUTOFIT:
+                    continue
+            except Exception:
+                pass
+            w, h = shape.width, shape.height
+            if not w or not h:
+                continue
+            uw = max(w / 12700 - 14, 10.0)   # usable pt width (minus ~inset margins)
+            uh = max(h / 12700 - 8, 8.0)      # usable pt height
+            lines, maxfs = 0, 12.0
+            for p in tf.paragraphs:
+                t = (p.text or "").strip()
+                fs = next((r.font.size.pt for r in p.runs if r.font.size is not None), 18.0)
+                maxfs = max(maxfs, fs)
+                if not t:
+                    lines += 1
+                    continue
+                cpl = max(1, int(uw / (fs * 0.5)))
+                lines += max(1, math.ceil(len(t) / cpl))
+            text_h = lines * maxfs * 1.2
+            if text_h > uh * 1.2:
+                out.append({"severity": "WARN", "kind": "text-overflow-est", "slide": s_idx,
+                            "where": shape.name or "shape", "hex": None,
+                            "detail": f"text ~{text_h:.0f}pt likely exceeds box ~{uh:.0f}pt "
+                                      f"({lines} est. lines @ {maxfs:.0f}pt) — confirm via vision"})
+    return out
+
+
 def lint(prs, P):
     """Walk the deck and return the report dict {verdict, fail, warn, findings, ...}."""
     findings = []
@@ -265,6 +311,9 @@ def lint(prs, P):
                 "detail": f"{len(slide_hues)} distinct structural hues "
                           f"({', '.join(sorted(slide_hues))}) exceed max_colors_per_slide="
                           f"{P['max_per_slide']} (paper/bg/text excluded)"})
+
+    # heuristic overflow estimate (approximate, WARN-level; rendered vision pass is authoritative)
+    findings.extend(overflow_findings(prs))
 
     fails = [f for f in findings if f["severity"] == "FAIL"]
     warns = [f for f in findings if f["severity"] == "WARN"]
