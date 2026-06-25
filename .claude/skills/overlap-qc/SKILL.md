@@ -107,3 +107,6 @@ appropriateness given `eqs.qc.json`, vision = legibility). Avoid CodeCogs and th
 - `scripts/reconstruction_diff.py` — deterministic slides/pictures/tables count diff + per-figure
   content-hash matching (original vs reconstruction) so neither a silent drop nor a drop-and-swap
   slips through (python-pptx; deck-rebuild mode only).
+- `scripts/pptx_extract.py` — robust reconstruction-mode extractor: saves EVERY image (including
+  placeholder-embedded ones a naive PICTURE walk drops) + inventories tables / native autoshapes
+  (prstGeom) / notes, so the rebuild's input can't silently miss a figure or a visual-argument shape.
