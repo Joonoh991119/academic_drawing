@@ -111,6 +111,9 @@ allowed but MUST appear in the slide-mapping manifest. Preserve substance exactl
   password, private key, API token, or a live host+credential, replace it with `[REDACTED]` (or a clear
   placeholder) in the rebuild and flag it at the gate — never reproduce a working secret into a
   regenerated deliverable, even when otherwise restyling verbatim.
+- **Carry the speaker notes forward.** If the source has speaker notes (the presenter's talk track),
+  preserve them in the reconstruction's notes pane — translated if needed — rather than only mining
+  them for on-slide bullets and leaving the notes pane empty; a reusable deck keeps its talk track.
 
 ## Follow-up behavior
 - On a partial re-run, rebuild only the affected slide(s); preserve the rest of the deck and the

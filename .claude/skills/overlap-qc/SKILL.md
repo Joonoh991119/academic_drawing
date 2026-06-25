@@ -80,7 +80,11 @@ python3 .claude/skills/overlap-qc/scripts/reconstruction_diff.py ORIGINAL.pptx R
 Counts slides / pictures / tables in both decks and surfaces every delta as a WARN — the deterministic
 backstop for the slide-builder fidelity rules, because a one-shot rebuild silently drops figures,
 collapses a table to prose, or re-authors the slide count (and may even self-report "all figures kept"
-while the counts say otherwise). All WARN by design: it can't tell a DATA figure from a DECORATIVE
+while the counts say otherwise). It ALSO content-hashes every embedded image and reports any SOURCE
+figure with no byte-identical match in the rebuild — catching a drop-and-swap that count-matching alone
+misses; `unmatched-figs 0/N` is positive evidence of figure-level fidelity (a legitimately transformed
+figure — cropped / WMF→PNG / recolored — also shows as unmatched, so disposition each). All WARN by
+design: it can't tell a DATA figure from a DECORATIVE
 icon, so each delta must be DISPOSITIONED in the orig→recon manifest (this drop = decorative; that
 table = rebuilt as a grid; +N slides = listed + justified). A figure/table drop the manifest can't
 account for is a real content loss → fix before ship.
@@ -100,5 +104,6 @@ appropriateness given `eqs.qc.json`, vision = legibility). Avoid CodeCogs and th
 - `scripts/overlap_check.py` — headless-Chrome geometry measurement + rectangle-intersection collision detection.
 - `scripts/pptx_style_lint.py` — deterministic deck palette / label-color / ≤N-hue / font / token-overload gate + a heuristic text-overflow estimate (WARN — the rendered vision pass confirms it) (python-pptx).
 - `scripts/equation_qc.py` — mathtext parse + sympy symbolic/undefined-symbol gate for equations.
-- `scripts/reconstruction_diff.py` — deterministic slides/pictures/tables count diff (original vs
-  reconstruction) so no content drop is silent (python-pptx; deck-rebuild mode only).
+- `scripts/reconstruction_diff.py` — deterministic slides/pictures/tables count diff + per-figure
+  content-hash matching (original vs reconstruction) so neither a silent drop nor a drop-and-swap
+  slips through (python-pptx; deck-rebuild mode only).
