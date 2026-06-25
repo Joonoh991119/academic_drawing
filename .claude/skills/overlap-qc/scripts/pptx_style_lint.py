@@ -52,6 +52,21 @@ def norm_hex(h):
     return "#" + h
 
 
+def _project_label_map():
+    """Project condition->token map the Director writes to _workspace/00_input/label_map.json."""
+    import os
+    d = Path(os.getcwd())
+    for _ in range(4):
+        f = d / "_workspace" / "00_input" / "label_map.json"
+        if f.exists():
+            try:
+                return {k: v for k, v in json.loads(f.read_text()).items() if not k.startswith("_")}
+            except Exception:
+                return {}
+        d = d.parent
+    return {}
+
+
 def load_palette(path):
     """Load palette.json and derive the contract sets/values. Returns a dict or raises."""
     pal = json.loads(Path(path).read_text())
@@ -67,10 +82,12 @@ def load_palette(path):
     # paper/bg/text do NOT count toward the per-slide hue budget (per palette _desc)
     non_counting = {tokens.get(t) for t in ("paper", "bg", "text") if tokens.get(t)}
 
-    # label_map: drop private "_*" keys; resolve each label -> required hex via its token name
+    # label_map: palette real keys + the project map (_workspace/00_input/label_map.json),
+    # each resolved label -> required hex via its token name.
+    merged = _project_label_map() or {k: v for k, v in pal.get("label_map", {}).items() if not k.startswith("_")}
     label_map = {}
-    for label, token in pal.get("label_map", {}).items():
-        if label.startswith("_") or not isinstance(token, str):
+    for label, token in merged.items():
+        if not isinstance(token, str):
             continue
         req = tokens.get(token)
         if req:

@@ -186,13 +186,26 @@ def structural_hex(data):
     return out
 
 
+def _project_label_map():
+    """Project condition->token map the Director writes to _workspace/00_input/label_map.json."""
+    import os
+    d = Path(os.getcwd())
+    for _ in range(4):
+        f = d / "_workspace" / "00_input" / "label_map.json"
+        if f.exists():
+            try:
+                return {k: v for k, v in json.loads(f.read_text()).items() if not k.startswith("_")}
+            except Exception:
+                return {}
+        d = d.parent
+    return {}
+
+
 def active_label_map(data):
-    """The condition->token map actually in force (real keys; fall back to _template)."""
+    """The condition->token map in force: palette real/_template keys, OVERRIDDEN by the project map."""
     lm = data.get("label_map", {})
     real = {k: v for k, v in lm.items() if not k.startswith("_")}
-    if real:
-        return real
-    return lm.get("_template", {})
+    return _project_label_map() or (real if real else dict(lm.get("_template", {})))
 
 
 # --- checks -----------------------------------------------------------------------------------

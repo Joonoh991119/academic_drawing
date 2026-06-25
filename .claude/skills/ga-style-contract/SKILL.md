@@ -27,9 +27,9 @@ Two sets, **both muted and harmonized** so a plot looks like it belongs next to 
 | `data_series` | plotted DATA series (curves, bars, points) | **muted** categorical set whose first two entries ARE `cond_a`/`cond_b` |
 
 **One color per condition, everywhere.** A *named* condition (in `label_map`) uses its mapped
-structural token in BOTH the diagram and the plot — the low-variance line in the plot is the SAME
-muted blue (`cond_a` #3D6E9B) as the low-variance element in the abstract. `data_series` only supplies
-extra muted hues for *unnamed* categorical levels beyond the named conditions. **Do NOT use bright
+structural token in BOTH the diagram and the plot — condition A is the SAME `cond_a` hue in the plot,
+the diagram, and the slides. `data_series` only supplies extra muted hues for *unnamed* categorical
+levels beyond the named conditions. **Do NOT use bright
 Okabe-Ito hues for plots** — they read as "generic/AI" and break the toned-down Nature/Cell look
 (this was a real defect). CVD safety comes from the **mandatory redundant coding** below (marker
 shape + line type + label), not from saturated color. Every plot must call `academic_mpl.apply_style()`
@@ -38,15 +38,15 @@ so it inherits Arial + the muted prop-cycle deterministically (no DejaVu fallbac
 **Rules (binding):**
 - **≤5 structural hues** coexist on one slide/panel (`paper`/`bg`/`text` don't count). Read the cap
   from `palette.max_colors_per_slide`; the deck lint and the SVG review both enforce it.
-- **One fixed label→color map per project.** The Director fills `palette.json` → `label_map` once
-  (replacing the `_template`), and *every* deliverable uses it identically. Condition A is the same
-  blue in the abstract, the slides, and the plots. Never recolor a condition between figures.
+- **One fixed label→color map per project.** The Director writes the project's conditions to
+  `_workspace/00_input/label_map.json` (the scripts read it; do **NOT** edit the shipped `palette.json`
+  `_template`), and *every* deliverable uses it identically. Never recolor a condition between figures.
 - **`accent` is rationed.** It marks the single key finding / core innovation — at most one
   emphasized region per panel.
 - **Never color-alone (redundant coding).** Every color distinction is *also* carried by at least one
   of: marker **shape**, line **type**, **position**, or a **direct label**. Never encode meaning by
-  red-vs-green alone. This keeps the figure legible in grayscale and for CVD readers. (`accent`
-  crimson vs `cond_a` blue can be confusable for deuteranopes — that is *why* accent is always also
+  red-vs-green alone. This keeps the figure legible in grayscale and for CVD readers. (`accent` vs
+  `cond_a` can be confusable for some CVD types — that is *why* accent is always also
   bold/larger/labeled.)
 - Plotted **named conditions** use their `label_map` token (= `data_series[0]`/`[1]` for the two
   locked conditions); additional *unnamed* levels take the next muted `data_series` entries in order.
@@ -55,12 +55,13 @@ so it inherits Arial + the muted prop-cycle deterministically (no DejaVu fallbac
 **Contrast/CVD gate at palette-lock.** Before any deliverable is drawn, the Director runs the swatch
 **and** the contrast check:
 ```
-python3 scripts/swatch.py            # visual swatch + current label map (human sign-off)
-python3 scripts/contrast_check.py    # WCAG text/bg ratios + CVD + grayscale separation of conditions
+python3 .claude/skills/ga-style-contract/scripts/swatch.py            # visual swatch + current label map (human sign-off)
+python3 .claude/skills/ga-style-contract/scripts/contrast_check.py    # WCAG text/bg ratios + CVD + grayscale separation of conditions
 ```
-`contrast_check.py` FAIL (text-on-bg below WCAG 4.5:1, or two conditions inseparable under a CVD
-simulation and grayscale) **blocks sign-off** — fix the palette, not the figure. WARNs are shown with
-the swatch for the human to weigh.
+`contrast_check.py` is run for the record and **surfaced at the human gate** — it does **not** block
+the initial draft (generate with the default palette). A WCAG text-on-bg FAIL blocks only a palette
+**change** that would render text illegible; condition-separation WARNs are advisory (the contract's
+mandatory redundant coding covers them).
 
 ## 2. Text & tone
 
@@ -104,7 +105,7 @@ At-a-glance attribution only (not a reference list). Format in `palette.json` �
 1. Given a claim or a named author/title, resolve it against the user's **Zotero** library via the
    MCP: topic claim → `mcp__zotero__semantic_search`; named author/title → `mcp__zotero__search_library`.
 2. Take the top hit's itemKey → `mcp__zotero__get_item_details`.
-3. Run `python3 scripts/format_citation.py <item.json>` to produce the contract-exact string
+3. Run `python3 .claude/skills/ga-style-contract/scripts/format_citation.py <item.json>` to produce the contract-exact string
    deterministically (author lastNames in order; 4-digit year from the free-form date; refuses with a
    `[PLACEHOLDER]` if creators/year are missing).
 4. **No confident hit** → `[PLACEHOLDER: citation — <claim>]` and the Director asks the operator at

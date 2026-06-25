@@ -16,7 +16,7 @@
 
 **결정 규칙 (속도/토큰 최적화 — 새 세션은 이걸 먼저 따른다):** 오케스트레이터는 요청에서 **Fast / Standard / Full 모드를 스스로 판단**하고(묻지 않음), don't-ask 기본값(팔레트=활성 저널 프리셋 NPG, GA=Cell square, 슬라이드=16:9 PPTX, 조건=brief에서 추론, 인용=Zotero-or-PLACEHOLDER)으로 **바로 생성**한다. 리뷰는 **전수검사 금지** — `academic-drawing-orchestrator/references/routing-and-review.md`의 scope/routing/rule에 따라 **해당되는 리뷰만 near-final에 1회**(기계적 게이트 overlap/lint/equation만 항상). 그 파일이 "얼마나 할지"의 SoT. 단순/구조화 입력은 Fast(팀·preview·다중리뷰 생략).
 
-**구성:** 에이전트/스킬 목록은 `.claude/agents/`, `.claude/skills/`와 오케스트레이터 스킬에서 관리(여기 중복 기재하지 않음). 실행 모드: 하이브리드(생성=에이전트 팀, 리뷰=병렬 서브에이전트). 모든 에이전트 `model: opus`.
+**구성:** 에이전트/스킬 목록은 `.claude/agents/`, `.claude/skills/`와 오케스트레이터 스킬에서 관리(여기 중복 기재하지 않음). 실행 모드: **기본 Fast/Standard**(생성=직접 서브에이전트, 리뷰=선택적 1회). **Full**(thorough/submission-grade 명시 시)에서만 에이전트 팀+live preview+3-lens. 모든 에이전트 `model: opus`.
 
 **환경 프리플라이트(실행 전 확인):**
 - `soffice`는 PATH에 없음 → **절대경로** `/Applications/LibreOffice.app/Contents/MacOS/soffice` 사용. headless Chrome도 절대경로(앱 번들).

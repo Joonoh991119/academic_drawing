@@ -7,9 +7,9 @@ constraints; validate against them at FINAL rendered size (Step 3), not in the e
 
 ### Cell Press (Neuron, Cell, Current Biology) — the default for comp-neuro
 - **Single panel only.** No multi-part (no a/b/c). One continuous visual narrative.
-- **Size:** width **min 1200 px, max 1323 px**; height **up to 1863 px**. Portrait or square. At 300 dpi that
-  is ~11.2 cm wide. Author the SVG at a viewBox matching the aspect (e.g. `0 0 1100 1500` portrait) and export
-  to the px target — vector source, raster/PDF output.
+- **Size:** see `ga-templates` Step 0 (the venue-spec SoT) — Cell GA = **5.5 in square @300 dpi = 1650 px,
+  single panel**. Author the SVG at a viewBox matching the aspect and export to the px target — vector
+  source, raster/PDF output. (A taller portrait is `--target cell_portrait`, only where a venue allows it.)
 - **Resolution:** 300 dpi minimum at final size. Export **vector PDF** (text crisp) + a 300-dpi PNG/TIFF.
 - **Font:** one sans-serif (Arial/Helvetica). Body legible at final size — keep ≥ ~12 pt equivalent; never
   below 8 pt. Consistent sizes (title / act-label / caption — three sizes max).
@@ -75,7 +75,7 @@ Variants: **task → two competing hypotheses → which won** (good for strong-i
 4. **Colorblind-safe:** ≤3 hues+accent, each paired with shape/position; legible in grayscale.
 5. **Font ≥ minimum at FINAL size** (Cell ≥ ~12 pt / never <8; Nature ≥5 pt). Validate post-export, not in editor.
 6. **No overflow / no overlap:** no clipped text, no colliding elements (run render.py's validator).
-7. **Vector export** (PDF) + 300-dpi raster; **exact dimensions** (Cell ≤1323 px wide / ≤1863 tall).
+7. **Vector export** (PDF) + 300-dpi raster; **exact dimensions** (per `ga-templates` Step 0 SoT).
 8. **Standalone:** understandable with zero caption; no jargon acronym undefined in-figure.
 9. **Single panel** (Cell): no a/b/c subfigures.
 10. **Honest:** the depicted finding matches the actual result (no implied effect you didn't measure).

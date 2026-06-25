@@ -21,7 +21,7 @@ semantic crowding). Run both; the math gates, the vision corroborates.
 
 **Step 1 — measure overlap (hard gate):**
 ```
-python3 scripts/overlap_check.py ABSTRACT.svg --json ABSTRACT.overlap.json
+python3 .claude/skills/overlap-qc/scripts/overlap_check.py ABSTRACT.svg --json ABSTRACT.overlap.json
 ```
 Exit codes: `0` clean · `2` FAIL present (block) · `3` could not measure (Chrome failed → fall back
 to the vision pass) · `4` WARN present under `--strict`. It loads the SVG in headless Chrome (the
@@ -53,7 +53,7 @@ Then `Read` the PNG so the vision agent reviews it.
 
 **Step 1 — deterministic style lint (hard gate, the deck's twin of `overlap_check`):**
 ```
-python3 scripts/pptx_style_lint.py DECK.pptx --json DECK.stylelint.json
+python3 .claude/skills/overlap-qc/scripts/pptx_style_lint.py DECK.pptx --json DECK.stylelint.json
 ```
 Reads `palette.json` and FAILs on: a structural fill not in the token set; a run matching a
 `label_map` key not carrying that token's hex; more distinct structural hues on a slide than
@@ -75,7 +75,7 @@ source for `PLACEHOLDER`. The cheap mechanical lint runs on every slide; the exp
 Four-stage gate (see `ga-style-contract` §4). The author emits `_workspace/eqs.json`
 (`[{id, latex, declared_symbols, reference_latex?}]`); then run the deterministic check:
 ```
-python3 scripts/equation_qc.py eqs.json --json eqs.qc.json   # mathtext parse + sympy symbol/identity check
+python3 .claude/skills/overlap-qc/scripts/equation_qc.py eqs.json --json eqs.qc.json   # mathtext parse + sympy symbol/identity check
 ```
 FAIL on broken markup or an undefined symbol. Then render each LaTeX offline with matplotlib mathtext
 (`text(0,0,r"$...$"); savefig`), `Read` the PNG, and have both reviewers check it (Codex = model

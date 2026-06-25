@@ -1,6 +1,6 @@
 ---
 name: graphical-abstract
-description: Design and render a Nature/Cell-Press-grade GRAPHICAL ABSTRACT (visual summary figure) for a computational-neuroscience paper — orientation estimation, visual cortex, serial dependence, working memory, attractor models, Bayesian observers. Produces editable vector SVG with a comp-neuro icon library (grating/Gabor stimulus, neuron, tuning curve, ring attractor, brain + visual areas, response dial, distributions, decision scale), a Cell-Press single-panel layout grammar, and a two-target render pipeline: (1) LIVE PREVIEW + iteration inside the chat via Claude's design/visualize tool (mcp__visualize__show_widget), and (2) PUBLICATION EXPORT to exact-size PDF/PNG (Cell 1323px, Nature mm). USE THIS whenever the user asks to "make a graphical abstract", "graphical abstract / 그래피컬 초록 / 그래픽 요약", "visual summary figure", "Cell/Nature style figure", "논문 그래픽 abstract", "summary diagram of the study", "key-finding figure", "make the abstract figure", or to render/preview/iterate one — AND follow-ups "redo the graphical abstract", "다시/수정/보완", "restyle", "fix the layout", "export it", "preview it in chat". Pairs with scientific-figure (multi-panel journal figures) and sci-ppt (slides); this skill owns the single-panel visual-summary deliverable and its Claude-design integration.
+description: Comp-neuro ADAPTER + publication render engine for the Academic_Drawing GA pipeline (the domain-agnostic layout archetypes + venue sizing live in `ga-templates`; load this skill only for comp-neuro projects or to render/export). Nature/Cell-Press-grade GRAPHICAL ABSTRACT specialized for computational-neuroscience — orientation estimation, visual cortex, serial dependence, working memory, attractor models, Bayesian observers. Produces editable vector SVG with a comp-neuro icon library (grating/Gabor stimulus, neuron, tuning curve, ring attractor, brain + visual areas, response dial, distributions, decision scale), a Cell-Press single-panel layout grammar, and a two-target render pipeline: (1) LIVE PREVIEW + iteration inside the chat via Claude's design/visualize tool (mcp__visualize__show_widget), and (2) PUBLICATION EXPORT to exact-size PDF/PNG (exact venue size per the ga-templates spec SoT). USE THIS for COMP-NEURO graphical abstracts (or to render/export any GA) — e.g. "make a graphical abstract", "graphical abstract / 그래피컬 초록 / 그래픽 요약", "visual summary figure", "Cell/Nature style figure", "논문 그래픽 abstract", "summary diagram of the study", "key-finding figure", "make the abstract figure", or to render/preview/iterate one — AND follow-ups "redo the graphical abstract", "다시/수정/보완", "restyle", "fix the layout", "export it", "preview it in chat". Pairs with scientific-figure (multi-panel journal figures) and sci-ppt (slides); this skill owns the single-panel visual-summary deliverable and its Claude-design integration.
 license: MIT
 ---
 
@@ -28,11 +28,11 @@ both previews live in chat (Claude design) and exports publication-grade.
    (1) PREVIEW / ITERATE                         (2) PUBLICATION EXPORT
    Claude design tool                            scripts/render.py (uv)
    mcp__visualize__show_widget                   SVG → PDF + PNG at exact size
-   - live in chat, dark-mode safe                - Cell 1323×(≤1863) px @300dpi
+   - live in chat, dark-mode safe                - Cell square 1650 px @300dpi (SoT: ga-templates)
    - fast visual iteration with the user         - Nature panel mm, fonts embedded
    - CSS-variable themed SVG                      - cairosvg / rsvg-convert / inkscape
 ```
-You almost always **iterate in target (1)** with the user, then **deliver in target (2)**. The two SVG
+In **Full mode** you iterate in target (1) with the user; in Fast/Standard go straight to QC. **Deliver in target (2)**. The two SVG
 dialects differ slightly (see `references/claude-design-integration.md`): the preview SVG uses Claude's
 CSS-variable color classes and 680px viewBox; the publication SVG uses the journal palette + exact mm/px and
 embedded fonts. Keep ONE conceptual layout; the skill's helpers translate between dialects.
@@ -89,7 +89,7 @@ vision-judge selection pattern (render 2–3 variants, pick the clearest) noted 
 - Do not paste a results figure as the abstract — no narrative.
 - Do not use gradients, drop shadows, 3-D bevels, stock clipart, or >4 colors.
 - Do not let any text fall below the journal's minimum font at FINAL rendered size (validate in Step 3).
-- Do not skip the live preview — iterate with the user in chat before exporting.
+- Live preview (target 1) is a **Full-mode / explicit-request** step; in Fast/Standard, skip it and go to QC.
 
 ## Files
 - `references/design-spec.md` — journal specs (Cell/Nature/NN), comp-neuro layout grammar, typography, palettes, QC checklist.

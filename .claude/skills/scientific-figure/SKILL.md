@@ -67,7 +67,7 @@ Two ways to compose: the `Figure` helper in `scripts/compose.py` (most cases) an
 ### Recipe A: helper (recommended)
 
 ```bash
-uv run --with svgutils --with lxml python scripts/compose.py panels-config.json -o figure.svg
+uv run --with svgutils --with lxml python .claude/skills/scientific-figure/scripts/compose.py panels-config.json -o figure.svg
 ```
 
 `panels-config.json` schema:
@@ -113,7 +113,7 @@ See `references/composition-workflow.md` for the patterns (panel scaling, label 
 This is the step that prevents the journal-rejection scenario. Run:
 
 ```bash
-uv run --with lxml python scripts/validate_fonts.py figure.svg --journal nature
+uv run --with lxml python .claude/skills/scientific-figure/scripts/validate_fonts.py figure.svg --journal nature
 ```
 
 The validator parses every `<text>` and `<tspan>` element with a `font-size`, walks the accumulated transform stack to compute the effective font size at the final physical dimensions, and reports anything below the journal minimum. Output is JSON:
@@ -153,7 +153,7 @@ See `references/font-validation.md` for the full mechanics and rationale.
 ## Step 5: Export to PDF/PNG
 
 ```bash
-uv run --with cairosvg python scripts/export.py figure.svg --out figure.pdf --dpi 300
+uv run --with cairosvg python .claude/skills/scientific-figure/scripts/export.py figure.svg --out figure.pdf --dpi 300
 ```
 
 `export.py` detects Inkscape on `$PATH` at runtime. When present, Inkscape produces the highest-fidelity PDF (text remains text, fonts subsetted). When absent, the script falls back to cairosvg with a stderr warning that text without an installed font may be converted to paths or skipped.

@@ -8,8 +8,16 @@ Checks the Python libs, the render/QC binaries, Node + pptxgenjs, and the option
 (Codex, Zotero MCP). Prints a status table + copy-paste install hints. Exit 0 if all REQUIRED
 components are present, 1 otherwise. Nothing here mutates the system.
 """
-import importlib, shutil, subprocess, sys, os
+import importlib, shutil, subprocess, sys, os, tempfile
 from pathlib import Path
+
+# matplotlib refuses to import cleanly if its config dir isn't writable (read-only HOME / CI);
+# point it at a temp dir so the import check reflects "installed", not "HOME writable".
+# Defensive: if even temp can't be created (locked-down sandbox), skip — never crash preflight.
+try:
+    os.environ.setdefault("MPLCONFIGDIR", tempfile.mkdtemp(prefix="mpl-"))
+except Exception:
+    pass
 
 # (label, kind, check, install hint, required?)
 GREEN, RED, YEL, DIM, RST = "\033[32m", "\033[31m", "\033[33m", "\033[2m", "\033[0m"

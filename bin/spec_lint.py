@@ -82,10 +82,23 @@ def check_dup_numbering():
                 run = {}; prev_ol = False  # a non-indented non-list line ends the list
     return issues
 
+def check_bare_script_cmds():
+    """Flag bare `python3 scripts/x.py` commands — they only work if cwd==the skill dir. Commands in
+    docs must be repo-root-relative (.claude/skills/<skill>/scripts/x.py) so they copy-paste correctly."""
+    issues = []
+    pat = re.compile(r"python3?\s+scripts/[A-Za-z0-9_./-]+\.py")
+    for f in md_files():
+        if not f.exists(): continue
+        for i, line in enumerate(f.read_text().splitlines(), 1):
+            if pat.search(line):
+                issues.append((f, i, "bare 'scripts/…py' command — use repo-root-relative .claude/skills/<skill>/scripts/…py"))
+    return issues
+
 def main():
     known = project_skills()
     all_issues = []
-    for label, fn in [("skill-ref", check_skill_refs), ("path", check_script_paths), ("numbering", check_dup_numbering)]:
+    for label, fn in [("skill-ref", check_skill_refs), ("path", check_script_paths),
+                      ("bare-path", check_bare_script_cmds), ("numbering", check_dup_numbering)]:
         for f, ln, msg in (fn(known) if fn is check_skill_refs else fn()):
             all_issues.append((label, f, ln, msg))
     if not all_issues:

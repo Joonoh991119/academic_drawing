@@ -2,9 +2,9 @@
 
 A **Claude Code harness** that produces, in order, a publication‑grade **graphical abstract**
 (code‑authored vector SVG) and an **academic presentation deck** (editable PPTX *and* an HTML
-"web" deck) for computational / cognitive‑neuroscience work — holding one journal palette, one
+"web" deck) for any scientific/academic project — holding one journal palette, one
 restrained voice, and one citation style across every deliverable, behind a
-generate → mechanical‑QC → 3‑lens review → human‑confirm loop.
+generate → mechanical‑QC → selective review → human‑confirm loop (mode‑based; see below).
 
 > Built for [Claude Code](https://claude.com/claude-code). It is a set of **agents** (`.claude/agents/`)
 > and **skills** (`.claude/skills/`) orchestrated by one skill; it is not a standalone CLI.
@@ -15,7 +15,7 @@ generate → mechanical‑QC → 3‑lens review → human‑confirm loop.
 
 | Deliverable | Format | Engine |
 |---|---|---|
-| **Graphical abstract** | vector **SVG** → PDF + 300‑dpi PNG, Cell‑square (1650²) or other venue | hand‑authored SVG from a comp‑neuro icon kit + `render.py` |
+| **Graphical abstract** | vector **SVG** → PDF + 300‑dpi PNG, Cell‑square (1650²) or other venue | hand‑authored SVG from a layout archetype (`ga-templates`) + `render.py` |
 | **Slides** | editable **PPTX** *and/or* **HTML** web deck | `pptxgenjs` + a Claude‑design HTML path |
 | **Plots** | code‑drawn matplotlib/seaborn, journal‑styled | `academic_mpl` (Arial + journal palette) |
 
@@ -38,18 +38,17 @@ the harness lays out and reserves their space but never fabricates their content
    environment (and `python3 bin/spec_lint.py` to lint the harness specs).
 2. **Ask for a deliverable**, e.g. *"make a graphical abstract for my study"* or *"build the talk
    slides"* (English or Korean). That fires the `academic-drawing-orchestrator` skill.
-3. **Provide a short brief**: background / gap / claim, the conditions, any data or result‑figure
-   placeholders, target venue, and (optional) the Zotero entries for citations.
-4. The harness runs:
-   - **Lock the style contract** — fills the project's `label_map`, renders a palette swatch +
-     contrast/CVD check; **you sign off**.
-   - **Graphical abstract** — concept layout → SVG compose → live preview → overlap/font/equation QC
-     → 3‑lens review (Codex rules · Opus logic · vision design) → **your confirm** → export.
-   - **Slides** — outline (fixed section template, action titles) → build PPTX and/or HTML →
-     style‑lint + render QC → 3‑lens review → **your confirm**. The approved abstract is reused on
-     the Experimental‑Procedure slide.
+3. **It drafts directly (no questionnaire).** The only things it needs are a topic and one claim;
+   conditions/venue/citations are inferred or become `[PLACEHOLDER]`. The harness picks a layout
+   archetype, applies the default journal palette, runs the cheap mechanical QC (overlap / font /
+   style‑lint / equation), runs **the one applicable review pass**, and shows you a **draft** with the
+   palette + inferred conditions surfaced at a **single confirm gate**.
+4. **Modes (it picks automatically, never asks):** *Fast* for pre‑structured input or "빨리/skip QC";
+   *Standard* (default) for a normal brief; *Full* only when you say "thorough / submission‑grade",
+   which adds the agent team, live preview, and the full 3‑lens review. See
+   [`routing-and-review.md`](.claude/skills/academic-drawing-orchestrator/references/routing-and-review.md).
 5. **Follow‑ups** ("recolor condition B", "redo the results slide", "switch to portrait") run as
-   partial re‑runs — only the affected agent and review re‑execute.
+   partial re‑runs — only the affected agent and review re‑execute, on the changed scope only.
 
 ## Design rules (enforced, not hoped for)
 

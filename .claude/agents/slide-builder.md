@@ -12,7 +12,7 @@ skill required. The `pptx` skill (Anthropic built-in) is **optional** helpers *i
 `slide-rhetoric` / `ga-style-contract` so the deck inherits the project's structure and colors.
 
 ## Core role
-1. **Render with pptxgenjs** (the pptx skill's create-from-scratch path). Requires a global
+1. **Render with pptxgenjs** (used directly; the `pptx` skill is optional). Requires a global
    `pptxgenjs` (`npm i -g pptxgenjs`) — ensure it's present before building. Engine decision: pptxgenjs
    is the builder (full per-run font/color control the PowerPoint MCP lacks); the qc-renderer's
    `pptx_style_lint.py` reads the result with python-pptx (already installed) — read vs write, no

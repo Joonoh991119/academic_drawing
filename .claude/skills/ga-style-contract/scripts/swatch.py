@@ -24,10 +24,23 @@ P = json.loads(pal_path.read_text())
 struct = {k: v for k, v in P["structural"].items() if not k.startswith("_")}
 series = P["data_series"]["series"]
 series_names = P["data_series"]["names"]
-# current label map = whatever is in label_map minus the _ keys; fall back to _template
-label_map = {k: v for k, v in P["label_map"].items() if not k.startswith("_")}
-if not label_map:
-    label_map = P["label_map"].get("_template", {})
+# effective label map: palette real/_template keys, OVERRIDDEN by the project map in _workspace
+def _project_label_map():
+    import os
+    d = Path(os.getcwd())
+    for _ in range(4):
+        f = d / "_workspace" / "00_input" / "label_map.json"
+        if f.exists():
+            try:
+                return {k: v for k, v in json.loads(f.read_text()).items() if not k.startswith("_")}
+            except Exception:
+                return {}
+        d = d.parent
+    return {}
+
+label_map = _project_label_map() \
+    or {k: v for k, v in P["label_map"].items() if not k.startswith("_")} \
+    or dict(P["label_map"].get("_template", {}))
 
 fig = plt.figure(figsize=(9, 7.5), dpi=150)
 fig.patch.set_facecolor("white")
@@ -64,8 +77,8 @@ for i, (hexv, nm) in enumerate(zip(series, series_names)):
 
 # --- label map ---
 ax3 = fig.add_axes([0.06, 0.04, 0.88, 0.18]); ax3.axis("off")
-title = "label_map  (current)" if any(not k.startswith("_") for k in P["label_map"]) \
-        else "label_map  (TEMPLATE — Director must replace with real conditions)"
+title = "label_map  (current)" if (_project_label_map() or any(not k.startswith("_") for k in P["label_map"])) \
+        else "label_map  (TEMPLATE — write _workspace/00_input/label_map.json for real conditions)"
 ax3.text(0, 1.05, title, fontsize=11, fontweight="bold",
          color=("#1A1A1A" if "current" in title else "#B23A48"), transform=ax3.transAxes)
 all_hex = {**{k: v["hex"] for k, v in struct.items()}}

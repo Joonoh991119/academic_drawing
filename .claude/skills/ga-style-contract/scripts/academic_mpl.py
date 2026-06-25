@@ -91,11 +91,11 @@ def _project_label_map():
 def resolve_label_map(palette=PALETTE):
     """Effective condition->token map: palette _template, overridden by the project label_map."""
     P = load(palette)
+    proj = _project_label_map()
+    if proj:
+        return proj
     lm = {k: v for k, v in P["label_map"].items() if not k.startswith("_")}
-    if not lm:
-        lm = dict(P["label_map"].get("_template", {}))
-    lm.update(_project_label_map())
-    return lm
+    return lm or dict(P["label_map"].get("_template", {}))
 
 
 def condition_color(label, palette=PALETTE):

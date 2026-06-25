@@ -48,9 +48,9 @@ team (Phase 4) — abstract artifacts persist in `_workspace/` for the slides te
 | `drawing-director` | custom (lead) | owns style contract, sequences phases, runs review loops, holds human gate | ga-style-contract, overlap-qc | locks palette+label_map; final handoff |
 | `concept-architect` | custom | designs the single-idea 3-act composition; pre-allocates whitespace + font sizes before placement | graphical-abstract, ga-style-contract | `_workspace/10_concept_layout.md` |
 | `svg-compositor` | custom | emits the publication SVG from the kit; inserts placeholder regions | graphical-abstract, ga-style-contract | `_workspace/12_abstract.svg` |
-| `plot-engineer` | custom | code-drawn matplotlib/seaborn figures, palette-locked, SVG/PDF + 300-dpi PNG | scientific-visualization, ga-style-contract | `_workspace/11_plot_*.svg` (or placeholders) |
+| `plot-engineer` | custom | code-drawn matplotlib/seaborn figures, palette-locked, SVG/PDF + 300-dpi PNG | ga-style-contract (+academic_mpl; *scientific-visualization* opt) | `_workspace/11_plot_*.svg` (or placeholders) |
 | `slide-planner` | custom | deck structure to the fixed section template + action titles + outline | slide-rhetoric, ga-style-contract | `_workspace/20_outline.md` |
-| `slide-builder` | custom | renders editable PPTX from the outline, palette/font reskinned, embeds abstract | pptx, slide-rhetoric | `_workspace/21_deck.pptx` |
+| `slide-builder` | custom | renders editable PPTX from the outline, palette/font reskinned, embeds abstract | slide-rhetoric (+pptxgenjs; *pptx* skill opt) | `_workspace/21_deck.pptx` |
 | `slide-web-builder` | custom | *alternative* deck path: HTML/CSS slides (Claude-design web), show_widget preview, Chrome export | slide-rhetoric, ga-style-contract | `_workspace/21web_slide_*.html/.png` |
 | `qc-renderer` | custom (general-purpose tools) | renders SVG/PPTX/HTML to images, runs overlap_check.py + pptx_style_lint.py + equation_qc.py, produces QC JSON + PNGs | overlap-qc | `_workspace/*_qc.json`, PNGs |
 | `naive-reviewer` | custom | drives `mcp__codex__codex` (read-only) for text/equation/abbreviation/claim rule-check | (Codex MCP) | `_workspace/*_naive_review.json` |
@@ -207,9 +207,9 @@ Same loop as Phase 3, slide-flavored (max 3 iterations), applied to each built d
    review findings deferred by the user.
 3. Invite feedback (harness evolution): anything to adjust in palette, layout grammar, or the loop?
 
-## Data flow
+## Data flow  (FULL mode shown; Fast/Standard skip the teams + the up-front sign-off — see routing-and-review.md)
 ```
-00_input ─▶ Director locks palette+label_map ─▶ swatch sign-off
+00_input ─▶ Director infers palette+label_map (surfaced at the final gate, not up front)
    │                                               │
    ▼                          (abstract team)      ▼
 concept_layout ─▶ plot SVGs ─▶ 12_abstract.svg ─▶ [qc_renderer|Codex|design] ─▶ human ─▶ abstract.{svg,pdf,png}
@@ -231,9 +231,13 @@ JSON/MD so they're auditable; the locked palette is the one in `ga-style-contrac
 | team member stalls | Director SendMessage to check, reassign, or restart |
 
 ## Test scenarios
-**Normal:** user gives a study brief → Phase 1 locks palette (sign-off) → abstract team drafts SVG →
-QC PASS, Codex + design clean (or fixed in ≤3 iters) → human approves → export → slides team builds
-deck reusing the abstract → QC/review/approve → `deck.pptx` delivered. Placeholders listed.
+**Fast (default for pre-structured input):** "make slides from this markdown" → infer + default, no
+questionnaire → build directly → mechanical QC + one combined quick-look → single human gate → delivered.
+**Standard (default for a brief):** brief → infer palette + conditions (no up-front sign-off) → pick
+archetype → draft → mechanical QC + the *applicable* review once → human gate (palette + draft
+surfaced together) → export. Placeholders listed.
+**Full (only if asked "thorough / submission-grade"):** Phase 1 → abstract team → live preview →
+3-lens review (≤3 iters) → human → slides team → review → approve.
 **Error:** overlap_check FAILs on the abstract (label collides with an arrow) → Director routes the
 specific finding to svg-compositor → relayout → re-render → PASS → continues. If still failing after
 3 iterations, the human is shown the exact collision and decides.

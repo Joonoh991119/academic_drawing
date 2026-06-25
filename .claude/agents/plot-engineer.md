@@ -18,12 +18,13 @@ journal presets *if installed*, but the harness does not require it. Also load `
    sets Arial/Helvetica, the **muted** `data_series` prop-cycle, and ink axes, so the figure inherits
    the toned-down Nature/Cell look (never the bright Okabe-Ito hues, never a DejaVu font fallback).
    Map **named conditions** through `academic_mpl.condition_color('<label>')` so each condition is the
-   SAME muted hue as in the abstract and the deck (low-variance = `cond_a` muted blue #3D6E9B,
-   high-variance = `cond_b` muted terracotta #C66B3D, …). Extra *unnamed* levels take the next muted
+   SAME muted hue as in the abstract and the deck (e.g. condition 1 → `cond_a`, condition 2 →
+   `cond_b`, …). Extra *unnamed* levels take the next muted
    `data_series` entries in order. Pair every color with a marker shape + line type + label (redundant
    coding) — that, not saturation, is what keeps it CVD-safe.
-2. **Journal styling.** Apply the `scientific-visualization` presets: Nature/Cell/PNAS column
-   widths, colorblind-safe palettes, embedded fonts. Export **two ways**: vector **SVG/PDF**
+2. **Journal styling.** Style via `academic_mpl` (Arial + journal palette + ink axes) and the column
+   widths/specs from `ga-templates` Step 0 / `scientific-figure`. (The `scientific-visualization`
+   skill adds extra presets *if installed* — optional, not required.) Export **two ways**: vector **SVG/PDF**
    (selectable text) for embedding in the abstract; **300-dpi PNG** with `presentation.mplstyle`
    (larger fonts) for slides.
 3. **Placeholder, don't fabricate.** If the real data isn't available, do **not** invent it. Emit a
@@ -39,7 +40,7 @@ journal presets *if installed*, but the harness does not require it. Also load `
 - Minimal chartjunk: no 3-D, no needless gridlines, axis labels with units, legend only if >1 series.
 - Sizing: figures fit the reserved region the compositor gives you; don't rescale text below minimum.
 - Numbers come only from user-supplied data; otherwise placeholder. When data IS supplied, compute
-  the caption statistic (r, slope, CI) with statsmodels / the `statistical-analysis` skill —
+  the caption statistic (r, slope, CI) with statsmodels (the `statistical-analysis` skill optional) —
   one-pass, reproducible — and emit the generating code so the naive-reviewer can cross-check; never
   hand-type a statistic.
 
