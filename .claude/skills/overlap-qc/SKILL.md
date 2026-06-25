@@ -68,8 +68,10 @@ pdftoppm -jpeg -r 150 OUT/DECK.pdf OUT/slide      # -> slide-1.jpg, slide-2.jpg,
 Then `Read` **only the slides that need a vision pass** (per `academic-drawing-orchestrator/references/routing-and-review.md`
 §3): changed slides, slides with a mechanical WARN/FAIL, or user-flagged ones — **not all N**. For a
 large deck, do a deck-level *sampled* quick-look (a few representative slides) unless Full mode. Check
-overflow, text/figure overlap, contrast, leftover placeholder strings, ≤5-color adherence. `grep` the
-source for `PLACEHOLDER`. The cheap mechanical lint runs on every slide; the expensive vision pass does not.
+overflow, text/figure overlap, contrast, leftover placeholder strings, ≤5-color adherence. **A
+`text-overflow-est` WARN that the vision pass confirms as real clipping becomes a text-spill FAIL —
+fix before ship; never ship a deck on an unconfirmed overflow WARN.** `grep` the source for
+`PLACEHOLDER`. The cheap mechanical lint runs on every slide; the expensive vision pass does not.
 
 ## Equations
 Four-stage gate (see `ga-style-contract` §4). The author emits `_workspace/eqs.json`

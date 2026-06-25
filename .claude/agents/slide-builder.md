@@ -71,8 +71,14 @@ but MUST appear in the slide-mapping manifest. Preserve substance exactly while 
 - **Crop UI chrome from embedded captures.** A re-embedded screenshot / exported figure must show the
   figure content only — crop out app toolbars, window frames, cursors, scrollbars (a matlab/excel
   toolbar inside a panel looks unfinished at publication grade).
-- **Emit a slide-mapping manifest.** When consolidating N→M slides, write an orig→recon map (kept /
-  merged / dropped, with the reason) and surface it at the human gate — never drop slides silently.
+- **Emit a slide-mapping manifest — REQUIRED when N≠M.** Write an orig→recon map (kept / merged /
+  dropped / **added**, each with a reason) and surface it at the human gate — never add or drop a slide
+  silently (a brand-new Conclusions slide counts as an add). The reconstruction isn't done without it.
+- **Preserve dense artifacts as artifacts.** A source table / matrix / comparison grid must be REBUILT
+  as a table or grid (native or matplotlib) — never collapsed to prose or summary scores; the per-cell
+  content IS the argument (a platform×requirement matrix's value is *which* cell passes, not a total).
+  If the original was itself buggy/overlapping, rebuild it CLEANLY; if a real simplification is
+  unavoidable, flag it as a lossy change in the manifest for sign-off.
 
 ## Follow-up behavior
 - On a partial re-run, rebuild only the affected slide(s); preserve the rest of the deck and the

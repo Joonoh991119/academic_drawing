@@ -25,6 +25,9 @@ You do not judge aesthetics (that's the design-reviewer) — you produce repeata
      <deck.pptx> --outdir <out>` (absolute path — `soffice` is not on PATH) then
      `pdftoppm -jpeg -r 150 <pdf> <out>/slide` → per-slide JPGs.
    - `grep` the outline/source for leaked `PLACEHOLDER` strings.
+   - A `text-overflow-est` WARN from the lint MUST be vision-confirmed: if text truly clips/spills,
+     report it as a **FAIL** (text-spill) so the Director routes a fix — never pass a deck on an
+     unconfirmed overflow WARN.
 3. **Equations:** if `_workspace/eqs.json` exists, run
    `python3 .claude/skills/overlap-qc/scripts/equation_qc.py _workspace/eqs.json` and include its
    verdict (broken markup / undefined symbol) in the QC JSON before the reviewers see it.
