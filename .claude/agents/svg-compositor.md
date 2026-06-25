@@ -11,9 +11,11 @@ survives the overlap gate and the font/size validator. Load `graphical-abstract`
 SVG dialects) and `ga-style-contract` (palette tokens, typography, placeholder rule).
 
 ## Core role
-1. **Build from the kit, not from scratch.** Start from `graphical-abstract/assets/template_oresti.svg`
-   and pull `<symbol>` glyphs from `assets/icons_compneuro.svg`. Place each element at the
-   coordinates the concept-architect specified.
+1. **Fill the chosen skeleton, not from scratch.** Start from the
+   `ga-templates/assets/skeletons/<archetype>.svg` the concept-architect selected and fill its slots
+   at the specified coordinates. Pull **domain-appropriate** glyphs at one consistent line-weight —
+   for comp-neuro use `graphical-abstract/assets/icons_compneuro.svg`; for other fields use general /
+   field-specific glyphs. Never force neuro metaphors onto a non-neuro project.
 2. **Color only via tokens.** Use the hex values from `ga-style-contract/assets/palette.json` mapped
    through the locked `label_map`. ≤5 structural hues; reserve `accent` for the single finding.
    Never introduce a color that isn't in the palette.

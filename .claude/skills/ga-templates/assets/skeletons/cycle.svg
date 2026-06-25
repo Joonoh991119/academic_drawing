@@ -1,0 +1,46 @@
+<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#22303C"/>
+    </marker>
+  </defs>
+
+  <!-- background -->
+  <rect x="0" y="0" width="1200" height="1200" fill="#FFFFFF"/>
+
+  <!-- ===== CURVED CLOCKWISE ARROWS (drawn under the slots) ===== -->
+  <!-- four arcs sweep clockwise around a ring (radius ~480, center 600,600) -->
+  <!-- top slot -> right slot -->
+  <path d="M 766 261 A 480 480 0 0 1 939 434" fill="none" stroke="#22303C" stroke-width="3" marker-end="url(#arrow)"/>
+  <!-- right slot -> bottom slot -->
+  <path d="M 939 766 A 480 480 0 0 1 766 939" fill="none" stroke="#22303C" stroke-width="3" marker-end="url(#arrow)"/>
+  <!-- bottom slot -> left slot -->
+  <path d="M 434 939 A 480 480 0 0 1 261 766" fill="none" stroke="#22303C" stroke-width="3" marker-end="url(#arrow)"/>
+  <!-- left slot -> top slot -->
+  <path d="M 261 434 A 480 480 0 0 1 434 261" fill="none" stroke="#22303C" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- ===== STATION SLOTS (on the ring) ===== -->
+  <!-- top (center 600,200) -->
+  <rect x="450" y="130" width="300" height="140" rx="20" ry="20" fill="none" stroke="#8A97A3" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="600" y="210" text-anchor="middle" font-size="30" fill="#8A97A3">[ Stage 1 ]</text>
+
+  <!-- right (center 1000,600) -->
+  <rect x="850" y="530" width="300" height="140" rx="20" ry="20" fill="none" stroke="#8A97A3" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="1000" y="610" text-anchor="middle" font-size="30" fill="#8A97A3">[ Stage 2 ]</text>
+
+  <!-- bottom (center 600,1000) -->
+  <rect x="450" y="930" width="300" height="140" rx="20" ry="20" fill="none" stroke="#8A97A3" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="600" y="1010" text-anchor="middle" font-size="30" fill="#8A97A3">[ Stage 3 ]</text>
+
+  <!-- left (center 200,600) -->
+  <rect x="50" y="530" width="300" height="140" rx="20" ry="20" fill="none" stroke="#8A97A3" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="200" y="610" text-anchor="middle" font-size="30" fill="#8A97A3">[ Stage 4 ]</text>
+
+  <!-- ===== CENTER PUNCHLINE SLOT (accent) ===== -->
+  <rect x="408" y="540" width="384" height="120" rx="20" ry="20" fill="none" stroke="#E64B35" stroke-width="3" stroke-dasharray="8 6"/>
+  <text x="600" y="613" text-anchor="middle" font-size="30" fill="#E64B35">&#9733; Emergent property</text>
+
+  <!-- ===== archetype name + reading-flow note (bottom-left) ===== -->
+  <text x="40" y="1110" font-size="30" fill="#8A97A3">Archetype 7 - Cycle / loop</text>
+  <text x="40" y="1152" font-size="30" fill="#8A97A3">Reading flow: clockwise ring, repeating</text>
+</svg>

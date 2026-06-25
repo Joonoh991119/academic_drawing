@@ -14,8 +14,8 @@ Usage:
     import sys; sys.path.insert(0, "<repo>/.claude/skills/ga-style-contract/scripts")
     from academic_mpl import apply_style, condition_color, series_colors
     P = apply_style()                              # sets rcParams, returns the palette dict
-    ax.plot(x, y, color=condition_color("low_var_context"), marker="o", label="Low-var")
-    ax.plot(x, y, color=condition_color("high_var_context"), marker="^", label="High-var")
+    ax.plot(x, y, color=condition_color("condition_1"), marker="o", label="Condition 1")
+    ax.plot(x, y, color=condition_color("condition_2"), marker="^", label="Condition 2")
 """
 import json, sys
 from pathlib import Path
@@ -72,12 +72,38 @@ def series_colors(palette=PALETTE):
     return load(palette)["data_series"]["series"]
 
 
-def condition_color(label, palette=PALETTE):
-    """Muted hex for a NAMED condition via label_map (so plot color == diagram color).
-    Unknown label -> ink (caller should instead take the next series_colors() entry)."""
+def _project_label_map():
+    """The project's condition->token map, written by the Director to
+    _workspace/00_input/label_map.json (searched from cwd upward). Empty if absent."""
+    import os
+    d = Path(os.getcwd())
+    for _ in range(4):
+        f = d / "_workspace" / "00_input" / "label_map.json"
+        if f.exists():
+            try:
+                return {k: v for k, v in json.loads(f.read_text()).items() if not k.startswith("_")}
+            except Exception:
+                return {}
+        d = d.parent
+    return {}
+
+
+def resolve_label_map(palette=PALETTE):
+    """Effective condition->token map: palette _template, overridden by the project label_map."""
     P = load(palette)
     lm = {k: v for k, v in P["label_map"].items() if not k.startswith("_")}
-    tok = lm.get(label)
+    if not lm:
+        lm = dict(P["label_map"].get("_template", {}))
+    lm.update(_project_label_map())
+    return lm
+
+
+def condition_color(label, palette=PALETTE):
+    """Muted hex for a NAMED condition via the effective label_map (so plot color == diagram color).
+    Reads the project label_map from _workspace/00_input/label_map.json first, then palette _template.
+    Unknown label -> ink (caller should instead take the next series_colors() entry)."""
+    P = load(palette)
+    tok = resolve_label_map(palette).get(label)
     if tok and tok in P["structural"]:
         return P["structural"][tok]["hex"]
     return P["structural"]["ink"]["hex"]
@@ -87,5 +113,5 @@ if __name__ == "__main__":
     P = apply_style()
     print("[academic_mpl] font.sans-serif:", matplotlib.rcParams["font.sans-serif"][0])
     print("[academic_mpl] muted series:", P["data_series"]["series"])
-    for lab in ("low_var_context", "high_var_context", "adaptive_prior", "veridical"):
+    for lab in ("condition_1", "condition_2", "key_finding", "baseline"):
         print(f"  condition_color({lab!r}) -> {condition_color(lab)}")

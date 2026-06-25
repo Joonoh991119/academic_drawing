@@ -52,8 +52,11 @@ Fix before drawing (see `references/design-spec.md`):
   is the punchline — give it the most visual weight.
 
 ### Step 1 — Build the SVG from the kit
-Start from `assets/template_oresti.svg` (a complete, renderable 3-act comp-neuro example) and the icon
-library `assets/icons_compneuro.svg` (`<symbol>` glyphs: grating/Gabor, neuron, tuning curve, ring attractor,
+First pick the **archetype + pre-built skeleton** from `ga-templates` (domain-agnostic — linear /
+comparison / forking / hub / cycle / quadrant / hierarchy / before-after / single-finding). Then fill
+its slots. For comp-neuro, start from `assets/template_oresti.svg` (a 3-act = vertical linear-pipeline
+example) and the icon library `assets/icons_compneuro.svg` — but treat the comp-neuro icons as ONE
+domain fill; for other fields use field-appropriate glyphs at the same line-weight/detail. (`<symbol>` glyphs: grating/Gabor, neuron, tuning curve, ring attractor,
 brain+visual areas, eye, response dial, gaussian/distribution, decision scale, flow arrow). Recolor from
 `assets/palettes.json` (Cell, Nature, Okabe-Ito colorblind-safe). Rules: ≤3 hues + 1 accent; one sans-serif
 family; sentence case; every glyph captioned ≤7 words; generous whitespace; no gradients/shadows/3-D/clipart.

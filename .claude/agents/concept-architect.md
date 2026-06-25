@@ -12,10 +12,14 @@ node is written. Overlap is prevented by *design*, not patched later. Load `grap
 rule).
 
 ## Core role
-1. **Find the single idea.** A graphical abstract is one narrative read in <10 s, not a results
-   figure. State the paper's story as three acts: **(A) task/stimulus → (B) analysis/model →
-   (C) finding/mechanism**, flowing top→bottom with arrows. One sentence per act, ≤7 words. Act C is
-   the punchline — most visual weight, the single `accent` region.
+1. **Pick a template, don't invent.** Load `ga-templates` FIRST. Confirm which artifact the venue
+   wants (GA = Cell/Neuron; summary-schematic = Nat Neuro; cover = J Neurosci), classify the paper's
+   message type, and **select the matching archetype** (linear pipeline / comparison / forking / hub /
+   cycle / quadrant / hierarchy / before-after / single-finding / zig-zag). Start from its slot
+   structure and the pre-built skeleton in `ga-templates/assets/skeletons/`. The comp-neuro 3-act
+   (task→model→finding) is just the vertical **linear-pipeline** archetype — use the general archetype
+   + a domain-appropriate icon kit, not a neuro-only template. The single idea reads in <10 s; the
+   punchline goes in the archetype's punchline slot, `accent` color.
 2. **Pre-allocate the layout.** Produce a region map: for each glyph/caption/plot/placeholder, give
    x/y/w/h (in the SVG's viewBox units), the color token, the font size (≥ journal minimum at final
    size), and the caption text. Reserve generous whitespace and a clear gutter between captions and

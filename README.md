@@ -24,8 +24,18 @@ the harness lays out and reserves their space but never fabricates their content
 
 ## How to use it
 
+> **Quick start (any field — not just neuro).** Open the folder in Claude Code and say what you want
+> in one line — e.g. *"make a graphical abstract for my materials paper: a nanoparticle coating
+> improves battery cycle life"*, or *"build the talk slides from this markdown"*. The harness picks a
+> layout **archetype**, applies the default journal palette, **reserves placeholders** for figures
+> you'll add later, and shows a **draft** — no up-front questionnaire. The only things it needs are a
+> topic and one claim; conditions, venue, citations all default or become placeholders. It is
+> **domain-agnostic** — the archetypes (pipeline, comparison, mechanism, hub, cycle, quadrant,
+> hierarchy, …) and journal palettes fit any field; comp-neuro is just one optional icon set.
+
 1. **Open this folder in Claude Code.** `CLAUDE.md` registers the harness so the orchestrator
-   triggers automatically.
+   triggers automatically. First time on a machine, run `python3 bin/preflight.py` to check the
+   environment (and `python3 bin/spec_lint.py` to lint the harness specs).
 2. **Ask for a deliverable**, e.g. *"make a graphical abstract for my study"* or *"build the talk
    slides"* (English or Korean). That fires the `academic-drawing-orchestrator` skill.
 3. **Provide a short brief**: background / gap / claim, the conditions, any data or result‑figure

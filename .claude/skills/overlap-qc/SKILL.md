@@ -65,10 +65,11 @@ confirms). Block on FAIL before spending a render.
 /Applications/LibreOffice.app/Contents/MacOS/soffice --headless --convert-to pdf DECK.pptx --outdir OUT/
 pdftoppm -jpeg -r 150 OUT/DECK.pdf OUT/slide      # -> slide-1.jpg, slide-2.jpg, ...
 ```
-Then `Read` each slide JPG for the vision pass: overflow, text/figure overlap, contrast, leftover
-placeholder strings, ≤5-color adherence. Also `grep` the source for `PLACEHOLDER` to confirm none
-leaked into the final unless intended. Fix-and-verify at least one cycle; dense Results/Metrics
-slides commonly need it.
+Then `Read` **only the slides that need a vision pass** (per `academic-drawing-orchestrator/references/routing-and-review.md`
+§3): changed slides, slides with a mechanical WARN/FAIL, or user-flagged ones — **not all N**. For a
+large deck, do a deck-level *sampled* quick-look (a few representative slides) unless Full mode. Check
+overflow, text/figure overlap, contrast, leftover placeholder strings, ≤5-color adherence. `grep` the
+source for `PLACEHOLDER`. The cheap mechanical lint runs on every slide; the expensive vision pass does not.
 
 ## Equations
 Four-stage gate (see `ga-style-contract` §4). The author emits `_workspace/eqs.json`

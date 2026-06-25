@@ -1,8 +1,13 @@
 # runtime / generated artifacts
 _workspace/
+_workspace*/
 __pycache__/
 *.pyc
 .DS_Store
+# bulky regenerable skeleton renders (keep .svg templates + .png previews)
+.claude/skills/ga-templates/assets/skeletons/*.pdf
+# project-specific deliverables belong in their own project repo, not the harness
+/*.pptx
 # generated QC reports (regenerate on each run)
 *.contrast.json
 *.overlap.json

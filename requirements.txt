@@ -1,0 +1,14 @@
+# Academic_Drawing — Python requirements.   pip install -r requirements.txt
+# (See bin/preflight.py for a full environment check incl. binaries + Node.)
+
+matplotlib>=3.8      # plots + mathtext equation render + swatch/contrast/presets
+seaborn>=0.13        # statistical plot layer (recommended)
+numpy>=1.24          # plotting + contrast_check color math
+sympy>=1.12          # equation_qc symbolic / undefined-symbol gate
+python-pptx>=1.0     # pptx_style_lint (read-only deck palette/font gate)
+cairosvg>=2.7        # SVG->PNG/PDF fallback renderer (render.py)
+lxml>=5.0            # SVG parsing (render.py)
+pillow>=10.0         # image size reads in scripts
+
+# Optional (features degrade gracefully without these):
+# markitdown[pptx]   # slide text extraction for QA

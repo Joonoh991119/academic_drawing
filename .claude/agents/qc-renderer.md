@@ -15,7 +15,7 @@ You do not judge aesthetics (that's the design-reviewer) — you produce repeata
    - Run `python3 .claude/skills/overlap-qc/scripts/overlap_check.py <abstract.svg> --json <out>`
      (headless-Chrome bbox measurement → rectangle-intersection). Report `verdict`, every FAIL/WARN
      with its rect and text.
-   - Run `graphical-abstract/scripts/render.py <abstract.svg> --target cell` (font minima + oversize).
+   - Run `.claude/skills/graphical-abstract/scripts/render.py <abstract.svg> --target cell` (font minima + oversize).
    - Render a PNG for the vision pass (Chrome `--screenshot` at full size, or `rsvg-convert -w 1600`).
 2. **Slides (PPTX):**
    - First the deterministic style lint (hard gate):
@@ -28,7 +28,7 @@ You do not judge aesthetics (that's the design-reviewer) — you produce repeata
 3. **Equations:** if `_workspace/eqs.json` exists, run
    `python3 .claude/skills/overlap-qc/scripts/equation_qc.py _workspace/eqs.json` and include its
    verdict (broken markup / undefined symbol) in the QC JSON before the reviewers see it.
-3. **Report, don't fix.** Emit a concise QC JSON (`verdict`, `fail`, `warn`, findings with rects) and
+4. **Report, don't fix.** Emit a concise QC JSON (`verdict`, `fail`, `warn`, findings with rects) and
    the image paths. FAIL = hard gate: the Director routes specifics to the producer; you re-run after
    the fix.
 

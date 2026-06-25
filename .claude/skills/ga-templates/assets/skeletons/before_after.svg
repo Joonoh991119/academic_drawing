@@ -1,0 +1,30 @@
+<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#22303C"/>
+    </marker>
+  </defs>
+
+  <!-- white background -->
+  <rect x="0" y="0" width="1200" height="1200" fill="#FFFFFF"/>
+
+  <!-- ============ BEFORE slot (left, state 0) ============ -->
+  <rect x="80" y="360" width="390" height="480" rx="28" ry="28"
+        fill="none" stroke="#8A97A3" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="275" y="612" text-anchor="middle" font-size="36" fill="#8A97A3">[ Before / state 0 ]</text>
+
+  <!-- ============ intervention label (above the arrow, inside the corridor) ============ -->
+  <text x="600" y="528" text-anchor="middle" font-size="30" fill="#8A97A3">[ intervention ]</text>
+
+  <!-- ============ bold horizontal arrow (Before -> After) ============ -->
+  <line x1="500" y1="600" x2="700" y2="600"
+        stroke="#22303C" stroke-width="9" marker-end="url(#arrowhead)"/>
+
+  <!-- ============ AFTER slot (right, state 1) — PUNCHLINE / accent ============ -->
+  <rect x="730" y="360" width="390" height="480" rx="28" ry="28"
+        fill="none" stroke="#E64B35" stroke-width="3" stroke-dasharray="8 6"/>
+  <text x="925" y="612" text-anchor="middle" font-size="36" fill="#E64B35">★ After / state 1</text>
+
+  <!-- ============ archetype name + reading-flow note (bottom-left) ============ -->
+  <text x="80" y="1148" font-size="28" fill="#8A97A3">Before -&gt; After  ·  flow: left (state 0) -&gt; right (state 1)</text>
+</svg>

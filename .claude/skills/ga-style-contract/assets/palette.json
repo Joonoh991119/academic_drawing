@@ -42,11 +42,7 @@
       "condition_2": "cond_b",
       "key_finding": "accent",
       "baseline":    "neutral"
-    },
-    "low_var_context":  "cond_a",
-    "high_var_context": "cond_b",
-    "adaptive_prior":   "accent",
-    "veridical":        "neutral"
+    }
   },
 
   "citation": {
@@ -66,6 +62,7 @@
     "_desc": "One sans-serif family across the whole project. Arial/Helvetica are confirmed present and are the Cell/Nature default.",
     "family": "Arial, Helvetica, sans-serif",
     "case": "sentence case (not Title Case, not ALL CAPS except acronyms)",
-    "font_minima_pt": { "cell": 8.0, "nature": 5.0, "slide_body": 18, "slide_title": 28 }
+    "_minima_note": "Hard illegibility floors (pt at final size); venue-spec SoT is ga-templates Step 0. Cell GA recommended 12-16pt, hard floor 9pt.",
+    "font_minima_pt": { "cell": 9.0, "nature": 5.0, "slide_body": 18, "slide_title": 28 }
   }
 }

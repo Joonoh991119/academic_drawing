@@ -10,18 +10,21 @@ wording. Pair it with `ga-style-contract` (color/tone/citation) and `overlap-qc`
 
 ## The fixed section template
 
-Every deck follows this skeleton (the user's template). One idea per slide; add slides within a
+The skeleton below is the **empirical-study** template (the most common case). **Adapt it to the
+project** — keep the sections that fit, drop those that don't: a theory / methods / review / position
+talk typically keeps Background, Gap, Claim, Method-overview, Evidence/Results, Discussion, Summary and
+**skips** Hypothesis & Prediction and the formal Metric & Axis. One idea per slide; add slides within a
 section rather than crowding one. The graphical abstract (already produced) is reused on the
-Experimental-Procedure / overview slide — do not redraw it.
+Method / overview slide — do not redraw it.
 
 | # | Section | Must contain | Notes |
 |---|---------|--------------|-------|
-| 1 | **Background** | the prior-work theoretical foundation the study builds on, each claim with a short citation `OO et al., 20xx` | state what is *established*, not everything known |
+| 1 | **Background** | the prior-work foundation the study builds on, each claim with a short citation `OO et al., 20xx` | state what is *established*, not everything known |
 | 2 | **Research Gap** | the unexplained piece: "*X* is known, but *Y* is not explained" | one sentence; this motivates everything |
 | 3 | **Main Claim** | "to address *Y* in the *Z* domain, we propose *W*" | the thesis of the talk; everything downstream connects here |
-| 4 | **Experimental Procedure** | block/session-level sequence + the per-trial time-series schematic (Stimulus → mask → delay → response); **reuse the graphical abstract** | this is structure, not results |
-| 5 | **Hypothesis & Prediction** | connected to the Main Claim: "if hypothesis *H* holds, then in *result R* we expect *E*" | predictions must be falsifiable and tied to a specific plot |
-| 6 | **Metric & Axis** | define the quantitative measure *M*, its equation (render-QC'd), and the plot conventions: what x/y axes are, how color/condition is assigned (from the locked label map) | sets up how to *read* the result plots |
+| 4 | **Method / Procedure** | the study's procedure/workflow overview; **reuse the graphical abstract**. For experimental designs, a per-trial schematic (e.g. stimulus → delay → response); for other work, the pipeline/approach diagram | structure, not results |
+| 5 | **Hypothesis & Prediction** *(empirical)* | connected to the Main Claim: "if *H* holds, then in *result R* we expect *E*" | falsifiable, tied to a specific plot; skip for non-empirical work |
+| 6 | **Metric & Axis** *(empirical)* | define the measure *M*, its equation (render-QC'd), and the plot conventions: x/y axes, how color/condition maps (from the project label map) | sets up how to *read* the result plots; skip if no quantitative metric |
 | 7 | **Main Results** | figure + short caption; numbers/short math only, **never full sentences** | one annotated exhibit per slide; the action title carries the takeaway |
 | 8 | **Discussion** | interpretation, relation back to the gap/claim, limits, alternatives | this is where prose is allowed |
 | 9 | **Summary (+α)** | 3–4 takeaways mirroring claim→evidence; then Conclusions/next-steps — **not** a "Thank You" slide | optional appendix slides after |

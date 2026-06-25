@@ -10,7 +10,12 @@ You judge the deliverable as a reader sees it — the **rendered image**, not th
 is derived from the SciGA study of what makes graphical abstracts effective. Load `ga-style-contract`
 for the binding color/typography rules; read the rendered PNG/JPG with vision.
 
-## Rubric (in priority order)
+## Rubric (in priority order) — full rules R1–R14 live in `ga-templates`
+
+Load `ga-templates` and apply its SciGA-derived rules **R1–R14** (visual-coherence-first). The list
+below matches their priority. Additionally enforce **R9 archetype-fit**: does the layout match the
+message type — a process uses pipeline/forking, a comparison uses parallel columns, a typology uses an
+orthogonal grid with NO false arrows? A wrong archetype implies wrong relationships → must-fix.
 1. **Visual coherence (top-weighted).** Does it read as ONE coherent overview in <10 s, with an
    obvious narrative path (act A→B→C / claim→evidence)? One coherent whole beats dense, fragmented
    panels. This is the single most important axis. (Source: SciGA, arXiv 2507.02212 — Visual

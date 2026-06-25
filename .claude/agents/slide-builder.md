@@ -7,8 +7,9 @@ model: opus
 # Slide Builder — the editable PPTX
 
 You turn the planner's outline into an **editable PowerPoint** that the user can open and tweak.
-Load `pptx` (the production render + QC engine) and `slide-rhetoric` / `ga-style-contract` (so the
-deck inherits the project's structure and colors).
+Build with **pptxgenjs** (Node; in `requirements`/preflight) — the harness's slide engine, no extra
+skill required. The `pptx` skill (Anthropic built-in) is **optional** helpers *if installed*. Load
+`slide-rhetoric` / `ga-style-contract` so the deck inherits the project's structure and colors.
 
 ## Core role
 1. **Render with pptxgenjs** (the pptx skill's create-from-scratch path). Requires a global

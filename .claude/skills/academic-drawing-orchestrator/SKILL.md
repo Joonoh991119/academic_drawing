@@ -1,16 +1,37 @@
 ---
 name: academic-drawing-orchestrator
-description: "Orchestrates the Academic_Drawing agent team to produce a publication-grade GRAPHICAL ABSTRACT (first) and then ACADEMIC PRESENTATION SLIDES (second) for computational/cognitive-neuroscience work, with a generate -> review -> human-confirm loop. Use whenever the user wants to build/make/design a graphical abstract, visual summary figure, Cell/Nature-style abstract figure, an academic talk/seminar/defense deck, or an experimental-procedure schematic — and for ALL follow-ups: redo/다시/수정/보완/restyle the abstract or slides, re-run, update, fix the layout, change a color/condition, export, regenerate the deck, partial re-run of one section, 'improve the previous result', or 'apply my feedback'. Owns the cross-deliverable color/citation/tone consistency and the QC loop. Trigger on 'graphical abstract', '그래피컬 초록/그래픽 요약/요약 그림', 'academic slides/발표 슬라이드/세미나/디펜스 자료', 'experimental procedure figure', or any restyle/redo of these."
+description: "Orchestrates the Academic_Drawing agent team to produce a publication-grade GRAPHICAL ABSTRACT and/or ACADEMIC PRESENTATION SLIDES for ANY scientific/academic project (domain-agnostic; not just neuro), with a decisive, mode-based generate -> selective-review -> human-confirm loop. Use whenever the user wants to build/make/design a graphical abstract, visual summary figure, Cell/Nature-style abstract figure, an academic talk/seminar/defense deck, a slides-from-markdown build, or an experimental-procedure schematic — and for ALL follow-ups: redo/다시/수정/보완/restyle, re-run, update, fix the layout, change a color/condition, export, regenerate, partial re-run of one section, 'improve the previous result', or 'apply my feedback'. Picks a Fast/Standard/Full mode and sane defaults instead of asking; reviews selectively, not exhaustively. Trigger on 'graphical abstract', '그래피컬 초록/그래픽 요약/요약 그림', 'academic slides/발표 슬라이드/세미나/디펜스 자료', 'experimental procedure figure', 'markdown -> pptx', or any restyle/redo of these."
 ---
 
 # Academic_Drawing Orchestrator
 
-Coordinates a specialist agent team to deliver, in order, (1) a single-panel **graphical abstract**
-and (2) an **academic presentation deck**, holding one palette / one voice / one citation style
-across both, and gating every deliverable through mechanical QC → naive review → design review →
-**human confirm**. The graphical abstract is produced first and then *reused* inside the deck.
+Coordinates a specialist agent team to deliver a **graphical abstract** and/or an **academic
+presentation deck**, holding one palette / one voice / one citation style across both. Works for
+**any scientific/academic project** — domain-agnostic core, with comp-neuro as one supported domain.
+When both are requested, the graphical abstract is produced first and *reused* inside the deck.
 
-## Execution mode: HYBRID
+## Decision discipline — READ FIRST  (`references/routing-and-review.md`)
+
+Be **decisive and selective**, not exhaustive. The harness's failure mode is dithering and
+over-reviewing. Before anything else:
+1. **Pick a MODE** — **Fast** (pre-structured input, "즉시/빨리", "skip QC", a recolor/export),
+   **Standard** (default — a normal brief), or **Full** (explicitly "thorough / submission-grade").
+   Infer it from the request; **never ask which mode**.
+2. **Apply the don't-ask DEFAULTS** — palette = the active journal preset (NPG), GA = Cell square,
+   slides = 16:9 PPTX, conditions inferred from the brief, citations from Zotero-or-`[PLACEHOLDER]`.
+   Generate with the default; surface the resulting choices at the **single** human gate, never as
+   up-front questions.
+3. **Review by ROUTING, once** — run only the *applicable* reviews on the *near-final* artifact, at
+   the right scope. Cheap deterministic gates (overlap/lint/equation) always; expensive model
+   reviews (Codex/logic/design) **once**, and only when there is something for them to judge. A
+   mechanical fix-loop never re-triggers the expensive reviews. Partial re-run = review only the
+   changed scope.
+
+`references/routing-and-review.md` is the authoritative spec for *how much to do, what to review,
+when*. This file governs *who does it*. When the two seem to conflict, routing-and-review.md wins on
+scope/mode; this file wins on roster/sequence.
+
+## Execution mode: HYBRID  (Full mode; Fast/Standard collapse the teams — see routing-and-review.md)
 | Phase | Mode | Why |
 |-------|------|-----|
 | 2 Abstract generation | **agent team** | concept ↔ compositor ↔ plot-engineer co-design one locked layout; the compositor needs plot SVGs sized to reserved regions |
@@ -41,9 +62,13 @@ vision design / Opus logic); the slide phase can build the PPTX deck, the HTML '
 
 ## Workflow
 
-### Phase 0 — Context check (follow-up support)
-1. Check for `_workspace/`.
-2. Decide mode:
+### Phase 0 — Mode, defaults & context
+0. **Pick the run MODE (Fast / Standard / Full)** and apply the don't-ask defaults —
+   `references/routing-and-review.md` §1–§2. This decides how much of the workflow below runs: Fast
+   collapses Phases 2–5 into one build + mechanical QC + one combined quick-look review + one gate;
+   Standard runs the applicable one-pass reviews; Full runs teams + all applicable reviews.
+1. Check for `_workspace/` (follow-up support).
+2. Decide the run shape:
    - **absent** → initial run → Phase 1.
    - **present + partial-fix request** (e.g. "fix the abstract's act C", "recolor condition B",
      "redo results slide") → **partial re-run**: re-invoke only the relevant agent(s), read the
@@ -52,52 +77,87 @@ vision design / Opus logic); the slide phase can build the PPTX deck, the HTML '
 3. For partial re-runs, pass the prior artifact path into the agent prompt so it edits rather than
    regenerates.
 
-### Phase 1 — Prep & lock the style contract
-1. Gather the user's material into `_workspace/00_input/` (paper text, data descriptions, the
-   story/claim, condition names, author/year for citations). Ask for what's missing — do **not**
-   fabricate facts, numbers, or citations.
-2. **Director locks the palette + label_map.** Replace the `_template` in
-   `ga-style-contract/assets/palette.json` → `label_map` with the project's real conditions, render
-   the swatch (`python3 ga-style-contract/scripts/swatch.py`), and **show it to the user for
-   sign-off** before producing anything. Record any palette/tone overrides in
-   `_workspace/00_input/style_overrides.md`.
-3. **Confirm venue + GA aspect with the operator (no fixed default).** Ask the target: Cell GA =
-   square `--target cell` (1650², Arial 12–16 pt); a taller portrait `--target cell_portrait` only
-   where the venue/use allows; or `nature1/2` / `pnas1/15/2`. Pass the chosen render target to the
-   abstract team. For slides: 16:9; ask whether to build the editable-PPTX deck, the HTML 'web' deck,
-   or **both**. Confirm deliverable order (abstract → slides).
-4. Run the contrast/CVD gate (`contrast_check.py`) as part of the palette sign-off — a WCAG FAIL
-   blocks the lock; condition-separation WARNs are acceptable because the contract mandates redundant
-   coding (shape/weight/position), which is the operator's confirmed preference.
+### Phase 1 — Intake (non-blocking: infer + default, do NOT interrogate)
 
-### Phase 2 — Graphical abstract: generate  (agent team)
+Gather what the user already gave into `_workspace/00_input/`. **Do not ask a checklist up front.**
+Fill the **universal intake schema** by inference; leave the rest as `[PLACEHOLDER]`:
+
+| Field | Get it from | If absent → |
+|-------|-------------|-------------|
+| topic / working title | the request | infer a working title |
+| one core claim | the request | `[PLACEHOLDER: claim]` |
+| 1–3 entities/conditions | the request | infer; map onto `cond_a` / `cond_b` / `accent` |
+| known assets (data, figures, refs) | request / attached files | reserve labeled placeholders |
+| target deliverable + venue | the request | **default: GA (Cell square) and/or PPTX 16:9** |
+
+Then, **without pausing**:
+1. Write the project label_map to `_workspace/00_input/label_map.json` (map the inferred conditions
+   onto `cond_a/cond_b/...`). **Do NOT edit the shipped `palette.json` `label_map`** — the scripts
+   read the project label_map from `00_input/`, falling back to palette.json `_template`.
+2. Apply the **defaults** (`references/routing-and-review.md` §2): palette = active journal preset,
+   GA = Cell square, slides = 16:9 PPTX, citations = Zotero-or-`[PLACEHOLDER]`.
+3. Render the swatch + run `contrast_check.py` *for the record* — do **not** block on sign-off.
+   Surface the palette + inferred label_map at the **single human gate**, with the draft.
+
+**Only hard-block to ask** when source material is missing that cannot be placeholdered (e.g. there is
+no claim at all). Everything else defaults or becomes a placeholder. A first user saying "make a
+graphical abstract for my study" should get a *default draft*, not an interview.
+
+---
+
+## The DEFAULT path is Fast/Standard — Phases 2–5 below are the FULL-mode expansion
+
+Do **not** reach for agent teams, live preview, or 3-lens review by default. Most runs are Standard
+or Fast.
+
+**Fast / Standard run (the default — no TeamCreate):**
+1. **Generate directly.** Abstract: `concept-architect` picks an archetype skeleton (`ga-templates`)
+   → `svg-compositor` fills it (+ `plot-engineer` for any plot). Slides: `slide-planner` →
+   `slide-builder`. Call these as sub-agents (`Agent`) or inline — not a team.
+2. **Mechanical gate.** `qc-renderer` runs overlap / pptx-lint / equation until PASS.
+3. **Review once, applicable only** (`references/routing-and-review.md` §3). Standard = the lenses
+   that have something to judge; **Fast = one combined quick-look** (tone+layout+claims in one Opus
+   pass). Skip vision on unchanged slides.
+4. **One human gate** with the render + a short findings summary. Done.
+
+**Full run** — only when the user asks "thorough / submission-grade / review carefully / for
+submission": use the team + live-preview + multi-iteration machinery in Phases 2–5.
+
+---
+
+### Phase 2 — Graphical abstract: generate  (FULL mode — team; Fast/Standard call the agents directly)
 1. `TeamCreate(team_name:"abstract-team", members:[drawing-director(lead), concept-architect,
    svg-compositor, plot-engineer], model:"opus")`.
 2. `TaskCreate`:
-   - concept-architect: design the 3-act (task→model→finding) layout, pre-allocate regions + font
-     sizes, mark which regions are real vs placeholder → `10_concept_layout.md`.
-   - plot-engineer: for any embedded data plot, either render it palette-locked, or (if data isn't
-     in hand) define a placeholder spec → `11_plot_*.svg` / placeholder notes.
-   - svg-compositor (depends on both): assemble `12_abstract.svg` from the kit, embed plots, insert
-     placeholder rectangles, keep ≤5 colors and the locked label_map.
+   - concept-architect: **pick the archetype** (`ga-templates`) by message type, start from its
+     skeleton, pre-allocate regions + font sizes, mark real vs placeholder → `10_concept_layout.md`.
+   - plot-engineer: for any embedded data plot, render it palette-locked, or (if data isn't in hand)
+     define a placeholder spec → `11_plot_*.svg` / placeholder notes.
+   - svg-compositor (depends on both): **fill the chosen skeleton** → `12_abstract.svg`, embed plots,
+     insert placeholder rectangles, keep ≤5 colors and the project label_map.
 3. Team coordinates via SendMessage: compositor requests plot SVGs sized to the reserved regions;
    concept-architect arbitrates layout conflicts. Director monitors.
 
-### Phase 2.5 — Live preview (steer before the costly gates)
-Before spending the Chrome + Codex + design passes, the svg-compositor renders the current SVG inline
-via `mcp__visualize__show_widget` (call `mcp__visualize__read_me` with modules `art,diagram` first;
-use the 680px preview dialect). The operator steers layout/emphasis/wording in a fast
-show→feedback→edit loop — this is the "claude design 연동" path. Lock the layout here, then proceed.
+### Phase 2.5 — Live preview (FULL mode / explicit "preview" request only — skip by default)
+Only in Full mode or when the user explicitly asks to preview/iterate inline: the svg-compositor
+renders the SVG via `mcp__visualize__show_widget` (call `mcp__visualize__read_me` with modules
+`art,diagram` first; 680px preview dialect). **Requires the visualize MCP** — not guaranteed; if it's
+absent, skip silently and go to QC. The operator steers in a fast show→feedback→edit loop (the
+"claude design 연동" path). Never let this reintroduce an up-front gate in Fast/Standard runs.
 
 ### Phase 3 — Graphical abstract: review loop  (parallel sub-agents → human)
-Run up to **3 fix iterations**, then escalate to the human regardless.
+Iteration cap by mode (`references/routing-and-review.md` §3): **Full** = up to 3 fix iterations;
+**Standard** = one review pass + at most one fix, then the gate; **Fast** = quick-look + gate (no fix
+loop). Reviews never re-run on a mechanical fix-loop.
 1. **Mechanical QC (hard gate).** `qc-renderer`: run `overlap_check.py 12_abstract.svg` and
    `graphical-abstract/scripts/render.py` (font minima + oversize). Any `FAIL` → send specifics to
    svg-compositor, fix, re-run. Block until overlap = PASS and render validates.
-2. In parallel once mechanical passes (three independent lenses):
+2. Once mechanical QC passes, run the **APPLICABLE reviews ONCE** (routing-and-review.md §3 — skip any
+   lens with nothing to judge; **Fast mode = one combined quick-look pass** instead of three; reviews
+   do NOT re-run on mechanical fix-loops):
    - **naive-reviewer (Codex)** on the SVG source + extracted text: tone/AI-slop, hallucinated
      abbreviations/jargon, undefined symbols, equation correctness, unsupported claims →
-     `14_naive_review.json`.
+     `14_naive_review.json`. *(skip if no text changed / Fast mode)*
    - **logic-reviewer (Opus)** on source + render: claim chain (gap→claim→hypothesis→metric→result),
      over-claiming, and direction/sign errors between action titles and what the plot shows →
      `16_abstract_logic_review.md`.

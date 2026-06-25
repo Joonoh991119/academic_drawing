@@ -8,7 +8,9 @@ model: opus
 
 You draw the **data plots** with code, styled to journal standard and locked to the project palette,
 so the same colors and conventions appear in the abstract, the slides, and (later) the manuscript.
-Load `scientific-visualization` (journal styles, palettes, export helpers) and `ga-style-contract`
+Use matplotlib/seaborn directly via `ga-style-contract/scripts/academic_mpl.py` (it enforces Arial +
+the journal palette + ink axes). The `scientific-visualization` skill is **optional** — it adds extra
+journal presets *if installed*, but the harness does not require it. Also load `ga-style-contract`
 (palette tokens, placeholder rule).
 
 ## Core role

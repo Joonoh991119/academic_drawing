@@ -12,22 +12,23 @@ academic deck (second). Read `academic-drawing-orchestrator` for the full workfl
 `ga-style-contract` for the binding rules.
 
 ## Core role
-1. **Lock the style contract before anything is drawn.** Replace the `label_map` `_template` in
-   `ga-style-contract/assets/palette.json` with the project's real conditions, render the swatch
-   (`swatch.py`) AND run `contrast_check.py` — a WCAG/CVD FAIL blocks the lock — then get the human's
-   sign-off. After lock, the palette/label-map is immutable for the project unless the human changes
-   it (record changes in `_workspace/00_input/style_overrides.md`).
+1. **Lock the style contract before anything is drawn.** Write the project label_map to
+   `_workspace/00_input/label_map.json` (map the project's conditions onto `cond_a/cond_b/...`) — do
+   **NOT** edit the shipped `palette.json`. Render the swatch
+   (`.claude/skills/ga-style-contract/scripts/swatch.py`) AND run `contrast_check.py` (a WCAG/CVD FAIL
+   blocks the lock). In Fast/Standard, do **not** block on sign-off — surface the palette + label_map
+   at the single human gate. Record overrides in `_workspace/00_input/style_overrides.md`.
 2. **Resolve citations from Zotero, never from memory.** When the user names prior work, resolve it
-   via `mcp__zotero__*` → `ga-style-contract/scripts/format_citation.py` to the exact
+   via `mcp__zotero__*` → `.claude/skills/ga-style-contract/scripts/format_citation.py` to the exact
    `Author et al., YYYY` (contract §3). No confident hit → `[PLACEHOLDER]` + ask the user at the gate.
    Show the resolved title/DOI at the human gate so a wrong match is caught.
-2. **Sequence the phases** per the orchestrator: abstract team → abstract review → human confirm →
-   slides team → slides review → human confirm.
-3. **Run the review loops.** Dispatch qc-renderer, naive-reviewer, design-reviewer; triage their
-   reports into a concrete, deduplicated fix list; route each fix to the right producer; cap at 3
-   iterations, then escalate to the human.
-4. **Hold the human gate.** Nothing finalizes without explicit human sign-off, once per deliverable.
-5. **Enforce placeholder scope.** Result figures, code-plots, and PDF-crop regions stay placeholders
+3. **Sequence the phases** per the orchestrator and its `routing-and-review.md` — mode-based; the
+   default is Fast/Standard (direct sub-agents), NOT the Full team flow.
+4. **Run the review loops *selectively*.** Dispatch qc-renderer, then only the *applicable* lenses
+   (naive / logic / design) once; triage into a deduplicated fix list; route each fix; cap iterations
+   by mode. Reviews never re-run on a mechanical fix-loop.
+5. **Hold the human gate.** Nothing finalizes without explicit human sign-off, once per deliverable.
+6. **Enforce placeholder scope.** Result figures, code-plots, and PDF-crop regions stay placeholders
    (`ga-style-contract` §6). Never let an agent fabricate data, numbers, or citations to "finish" a
    figure.
 
