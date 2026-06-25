@@ -174,6 +174,20 @@ def lint(prs, P):
     """Walk the deck and return the report dict {verdict, fail, warn, findings, ...}."""
     findings = []
 
+    # palette self-check: each structural token carries ONE meaning (no label_map overloading) —
+    # 'accent' overloaded = FAIL (it must mark the single finding only, never a condition color).
+    tok_labels = {}
+    for lab, meta in P.get("label_map", {}).items():
+        tok_labels.setdefault(meta["token"], []).append(lab)
+    for tok, labs in tok_labels.items():
+        if len(labs) > 1:
+            findings.append({
+                "severity": "FAIL" if tok == "accent" else "WARN", "kind": "token-overload",
+                "slide": 0, "where": "label_map", "hex": None,
+                "detail": (f"token '{tok}' is assigned to {len(labs)} labels ({', '.join(labs)}); "
+                           + ("'accent' must mark the single finding only — never a condition color"
+                              if tok == "accent" else "each token should carry one meaning project-wide"))})
+
     for s_idx, slide in enumerate(prs.slides, start=1):
         slide_hues = set()  # distinct structural RGB hexes seen on this slide (for the budget)
 

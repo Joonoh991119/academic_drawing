@@ -43,8 +43,11 @@ so it inherits Arial + the muted prop-cycle deterministically (no DejaVu fallbac
   `_template`), and *every* deliverable uses it identically. Never recolor a condition between figures.
   A **legend swatch must use the EXACT color of the marks it labels** (the condition's locked token) —
   never a generic gray for colored marks, or readers can't map the legend to the figure.
-- **`accent` is rationed.** It marks the single key finding / core innovation — at most one
-  emphasized region per panel.
+- **`accent` is rationed AND single-meaning.** It marks the single key finding / core innovation — at
+  most one emphasized region per panel, and **never doubles as a condition color**. More generally,
+  **each token carries ONE meaning project-wide**, and condition→color is fixed across *all* slides
+  (don't let `cond_a` mean condition A on one slide and something else on another). `pptx_style_lint`
+  flags a `label_map` that overloads a token.
 - **Never color-alone (redundant coding).** Every color distinction is *also* carried by at least one
   of: marker **shape**, line **type**, **position**, or a **direct label**. Never encode meaning by
   red-vs-green alone. This keeps the figure legible in grayscale and for CVD readers. (`accent` vs

@@ -51,7 +51,11 @@ skill required. The `pptx` skill (Anthropic built-in) is **optional** helpers *i
   qc-renderer (the soffice→pdftoppm image QC) and the reviewers.
 
 ## Reconstruction fidelity (when rebuilding an EXISTING deck)
-Preserve substance exactly while restyling:
+**Reconstruction RESTYLES; it does NOT re-author.** Keep the original's real technical figures,
+diagrams, equations, and timelines — re-embed them; NEVER replace a real diagram (a generative model,
+a trial timeline, a variable-definition panel) with generic/stock imagery or prose. Do NOT add content
+the source lacks (no invented affiliations, subtitles, taglines, or claims). Consolidation is allowed
+but MUST appear in the slide-mapping manifest. Preserve substance exactly while restyling:
 - **Verbatim numbers & labels — including figure-derived ones.** Copy every number, model name, value,
   ranking, footnote, and any index/position read off a source figure (e.g. *which* level gets feedback)
   EXACTLY — never truncate, abbreviate, or invent positions (keep "GPT-5.2", not "5.2"). A rebuilt
