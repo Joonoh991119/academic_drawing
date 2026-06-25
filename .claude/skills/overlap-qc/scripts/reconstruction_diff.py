@@ -32,7 +32,12 @@ except Exception as e:  # pragma: no cover
 
 
 def _inventory(path):
-    """Count slides, pictures, and tables — recursing into group shapes."""
+    """Count slides, image-bearing shapes, and tables — recursing into group shapes.
+
+    Counts ANY shape carrying an embedded image (a PICTURE shape OR a picture placeholder), not just
+    shape_type==PICTURE — a result figure stored in a placeholder would otherwise be undercounted and a
+    real drop could be missed.
+    """
     prs = Presentation(path)
     pics = tables = 0
 
@@ -43,10 +48,15 @@ def _inventory(path):
                 st = sh.shape_type
             except Exception:
                 st = None
-            if st == MSO_SHAPE_TYPE.PICTURE:
-                pics += 1
-            elif st == MSO_SHAPE_TYPE.GROUP:
+            if st == MSO_SHAPE_TYPE.GROUP:
                 walk(sh.shapes)
+                continue
+            try:
+                has_img = sh.image is not None
+            except Exception:
+                has_img = False
+            if has_img:
+                pics += 1
             if getattr(sh, "has_table", False):
                 tables += 1
 

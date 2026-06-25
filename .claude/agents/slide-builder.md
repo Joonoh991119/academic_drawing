@@ -86,6 +86,11 @@ but MUST appear in the slide-mapping manifest. Preserve substance exactly while 
   match the on-slide color key to the figure's actual colors or omit the key — NEVER let the slide's
   key claim teal/navy while the plot shows blue/orange (the key would lie about the figure). If the
   figure's data/source is in hand, regenerate it in the palette via `academic_mpl` instead.
+- **Pair labels to figures by spatial position, not extraction order.** When several re-embedded
+  figures sit under headers/labels (a comparison row, a member grid), the PPTX shape/extraction order
+  is NOT the on-screen left→right order — bind each label to its figure by the figure's original
+  x-position and VERIFY the pairing against the rendered original. A mislabeled figure (right image,
+  wrong caption/name) is a content error, not a layout nit.
 
 ## Follow-up behavior
 - On a partial re-run, rebuild only the affected slide(s); preserve the rest of the deck and the
