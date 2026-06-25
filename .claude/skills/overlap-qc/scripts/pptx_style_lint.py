@@ -196,7 +196,7 @@ def overflow_findings(prs):
             if not w or not h:
                 continue
             uw = max(w / 12700 - 14, 10.0)   # usable pt width (minus ~inset margins)
-            uh = max(h / 12700 - 8, 8.0)      # usable pt height
+            uh = max(h / 12700 - 4, 8.0)      # usable pt height (small inset; box sized to its font)
             lines, maxfs = 0, 12.0
             for p in tf.paragraphs:
                 t = (p.text or "").strip()
@@ -208,7 +208,9 @@ def overflow_findings(prs):
                 cpl = max(1, int(uw / (fs * 0.5)))
                 lines += max(1, math.ceil(len(t) / cpl))
             text_h = lines * maxfs * 1.2
-            if text_h > uh * 1.2:
+            # only flag genuine MULTI-LINE wrapping overflow; a single line in a tight box is a
+            # font-vs-box question the font floor already governs (avoids single-line false positives).
+            if lines >= 2 and text_h > uh * 1.2:
                 out.append({"severity": "WARN", "kind": "text-overflow-est", "slide": s_idx,
                             "where": shape.name or "shape", "hex": None,
                             "detail": f"text ~{text_h:.0f}pt likely exceeds box ~{uh:.0f}pt "
