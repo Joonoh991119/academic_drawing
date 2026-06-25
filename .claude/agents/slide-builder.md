@@ -101,6 +101,10 @@ allowed but MUST appear in the slide-mapping manifest. Preserve substance exactl
   is NOT the on-screen left→right order — bind each label to its figure by the figure's original
   x-position and VERIFY the pairing against the rendered original. A mislabeled figure (right image,
   wrong caption/name) is a content error, not a layout nit.
+- **Redact live secrets — faithfulness stops at credentials.** If the source embeds a plaintext
+  password, private key, API token, or a live host+credential, replace it with `[REDACTED]` (or a clear
+  placeholder) in the rebuild and flag it at the gate — never reproduce a working secret into a
+  regenerated deliverable, even when otherwise restyling verbatim.
 
 ## Follow-up behavior
 - On a partial re-run, rebuild only the affected slide(s); preserve the rest of the deck and the
