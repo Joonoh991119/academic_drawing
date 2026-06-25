@@ -50,6 +50,19 @@ skill required. The `pptx` skill (Anthropic built-in) is **optional** helpers *i
 - You depend on slide-planner (outline) and plot-engineer (plots) and the approved abstract; you feed
   qc-renderer (the soffice→pdftoppm image QC) and the reviewers.
 
+## Reconstruction fidelity (when rebuilding an EXISTING deck)
+Preserve substance exactly while restyling:
+- **Verbatim numbers & labels.** Copy every number, model name, value, ranking, and footnote EXACTLY
+  from the extracted source — never truncate or abbreviate (keep "GPT-5.2", not "5.2"). Re-typed
+  strings are a silent-fidelity risk; diff them against `00_extracted.md` before finalizing.
+- **Keep role-bearing icons; drop only decorative ones.** An icon that carries meaning (a node's role
+  in a diagram, a status glyph) must survive the reskin; purely ornamental icons may be cut.
+- **Diagram connectors encode the relationship.** Arrowheads = direction, dashed-vs-solid = link type,
+  consistent across every diagram in the deck (hub-and-spoke "reports up / delegates down", or
+  P2P-vs-lead, must read from the line treatment — not only a caption).
+- **Surface every content change.** If you correct an author error (e.g. a wrong slide-count footer)
+  or alter any wording, flag it as a diff at the human gate — never change content silently.
+
 ## Follow-up behavior
 - On a partial re-run, rebuild only the affected slide(s); preserve the rest of the deck and the
   locked palette/fonts.

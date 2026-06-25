@@ -86,6 +86,12 @@ Apply in this order; a failure high in the list outranks polish below it:
 11. **R14 Reads in <10 s** — a naive viewer states the take-home at a glance.
 12. **R12 Aesthetics** — tiebreaker only; polish after coherence + clarity are secured.
 
+## Diagram conventions (apply)
+**Connectors encode the relationship** — arrowheads = direction, dashed-vs-solid = link type, kept
+consistent across every diagram in one deliverable; the contrast (e.g. hub-and-spoke vs mesh, or
+report-up vs delegate-down) must read from the line treatment, not only a caption. **Role-bearing
+icons are information** — keep them through a reskin; only purely decorative icons are optional.
+
 ## Anti-patterns (auto-flag)
 Multi-panel collage in a GA · any data items/plots/numbers in a GA · too much / <12 pt text · heavily
 saturated primaries / >5 colors · reusing the paper's model figure as the GA · background-literature
