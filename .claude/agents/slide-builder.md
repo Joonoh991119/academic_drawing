@@ -52,9 +52,11 @@ skill required. The `pptx` skill (Anthropic built-in) is **optional** helpers *i
 
 ## Reconstruction fidelity (when rebuilding an EXISTING deck)
 Preserve substance exactly while restyling:
-- **Verbatim numbers & labels.** Copy every number, model name, value, ranking, and footnote EXACTLY
-  from the extracted source — never truncate or abbreviate (keep "GPT-5.2", not "5.2"). Re-typed
-  strings are a silent-fidelity risk; diff them against `00_extracted.md` before finalizing.
+- **Verbatim numbers & labels — including figure-derived ones.** Copy every number, model name, value,
+  ranking, footnote, and any index/position read off a source figure (e.g. *which* level gets feedback)
+  EXACTLY — never truncate, abbreviate, or invent positions (keep "GPT-5.2", not "5.2"). A rebuilt
+  schematic's numbers/positions MUST match the original (inventing them is content fabrication, not
+  restyling); diff re-typed strings against `00_extracted.md` before finalizing.
 - **Keep role-bearing icons; drop only decorative ones.** An icon that carries meaning (a node's role
   in a diagram, a status glyph) must survive the reskin; purely ornamental icons may be cut.
 - **Diagram connectors encode the relationship.** Arrowheads = direction, dashed-vs-solid = link type,
@@ -62,6 +64,11 @@ Preserve substance exactly while restyling:
   P2P-vs-lead, must read from the line treatment — not only a caption).
 - **Surface every content change.** If you correct an author error (e.g. a wrong slide-count footer)
   or alter any wording, flag it as a diff at the human gate — never change content silently.
+- **Crop UI chrome from embedded captures.** A re-embedded screenshot / exported figure must show the
+  figure content only — crop out app toolbars, window frames, cursors, scrollbars (a matlab/excel
+  toolbar inside a panel looks unfinished at publication grade).
+- **Emit a slide-mapping manifest.** When consolidating N→M slides, write an orig→recon map (kept /
+  merged / dropped, with the reason) and surface it at the human gate — never drop slides silently.
 
 ## Follow-up behavior
 - On a partial re-run, rebuild only the affected slide(s); preserve the rest of the deck and the

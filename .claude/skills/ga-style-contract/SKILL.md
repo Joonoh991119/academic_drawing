@@ -41,6 +41,8 @@ so it inherits Arial + the muted prop-cycle deterministically (no DejaVu fallbac
 - **One fixed label→color map per project.** The Director writes the project's conditions to
   `_workspace/00_input/label_map.json` (the scripts read it; do **NOT** edit the shipped `palette.json`
   `_template`), and *every* deliverable uses it identically. Never recolor a condition between figures.
+  A **legend swatch must use the EXACT color of the marks it labels** (the condition's locked token) —
+  never a generic gray for colored marks, or readers can't map the legend to the figure.
 - **`accent` is rationed.** It marks the single key finding / core innovation — at most one
   emphasized region per panel.
 - **Never color-alone (redundant coding).** Every color distinction is *also* carried by at least one
