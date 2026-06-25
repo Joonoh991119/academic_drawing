@@ -78,6 +78,12 @@ allowed but MUST appear in the slide-mapping manifest. Preserve substance exactl
   encodes its target direction (Latency↓, Reliability↑); a 2-branch tree encodes a split (Binary
   classification → Large-ring / Small-ring). Preserve the direction and the branching structure — never
   collapse a directional arrow or a branching diagram into neutral numbered cards.
+- **Panels that look identical are differentiated by overlay shapes — find them.** When a multi-panel
+  figure has visually similar panels, the argument often lives in small NATIVE autoshapes layered over
+  each panel (a down-arrow vs a no-entry/prohibition sign = "this stage injects the uncertainty" vs
+  "none does"). Those overlays are NOT in the extracted `figs/` (python-pptx saves only the base
+  raster) — read them from the RENDERED original (inspect the slide XML `prstGeom` if the render is
+  ambiguous) and reproduce each panel's differentiator. Never render distinct panels as identical.
 - **Surface every content change.** If you correct an author error (e.g. a wrong slide-count footer)
   or alter any wording, flag it as a diff at the human gate — never change content silently.
 - **Crop UI chrome from embedded captures.** A re-embedded screenshot / exported figure must show the
