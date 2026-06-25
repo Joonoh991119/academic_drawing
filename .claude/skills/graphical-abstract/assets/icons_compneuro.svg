@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <clipPath id="clip-grating"><circle cx="50" cy="50" r="38"/></clipPath>
+    <clipPath id="clip-gpL"><circle cx="30" cy="50" r="17"/></clipPath>
+    <clipPath id="clip-gpR"><circle cx="70" cy="50" r="17"/></clipPath>
+
+    <symbol id="ic-grating" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="50" cy="50" r="38"/>
+      <g clip-path="url(#clip-grating)" transform="rotate(30 50 50)" stroke-width="5">
+        <path d="M22 -20V120 M34 -20V120 M46 -20V120 M58 -20V120 M70 -20V120 M82 -20V120"/>
+      </g>
+    </symbol>
+
+    <symbol id="ic-grating-pair" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="30" cy="50" r="17"/>
+      <g clip-path="url(#clip-gpL)" transform="rotate(35 30 50)" stroke-width="4"><path d="M20 28V72 M28 28V72 M36 28V72"/></g>
+      <circle cx="70" cy="50" r="17"/>
+      <g clip-path="url(#clip-gpR)" transform="rotate(-35 70 50)" stroke-width="4"><path d="M60 28V72 M68 28V72 M76 28V72"/></g>
+      <path d="M50 44V56 M44 50H56"/>
+    </symbol>
+
+    <symbol id="ic-fixation" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="50" cy="50" r="14"/>
+      <circle cx="50" cy="50" r="3" fill="currentColor" stroke="none"/>
+      <path d="M50 22V32 M50 68V78 M22 50H32 M68 50H78"/>
+    </symbol>
+
+    <symbol id="ic-eye" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 50 Q50 22 86 50 Q50 78 14 50 Z"/>
+      <circle cx="50" cy="50" r="13"/>
+      <circle cx="50" cy="50" r="4" fill="currentColor" stroke="none"/>
+    </symbol>
+
+    <symbol id="ic-dial" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="50" cy="50" r="36"/>
+      <path d="M50 50 L73 31"/>
+      <circle cx="50" cy="50" r="4" fill="currentColor" stroke="none"/>
+      <path d="M50 14V22 M50 78V86 M14 50H22 M78 50H86"/>
+    </symbol>
+
+    <symbol id="ic-confidence-arc" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 62 A34 34 0 0 1 82 62"/>
+      <circle cx="66" cy="33" r="5" fill="currentColor" stroke="none"/>
+      <path d="M50 28 V18" stroke-width="3"/>
+    </symbol>
+
+    <symbol id="ic-decision" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M50 26 V74"/>
+      <circle cx="50" cy="22" r="4" fill="currentColor" stroke="none"/>
+      <path d="M50 44 H26 M32 38 L24 44 L32 50"/>
+      <path d="M50 60 H74 M68 54 L76 60 L68 66"/>
+    </symbol>
+
+    <symbol id="ic-clock" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="50" cy="52" r="32"/>
+      <path d="M50 52 V30 M50 52 L66 60"/>
+      <path d="M40 14 H60" stroke-width="5"/>
+    </symbol>
+
+    <symbol id="ic-neuron" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="40" cy="50" r="12"/>
+      <path d="M30 44 L16 32 M29 50 L13 50 M30 58 L16 70 M37 39 L28 24 M37 61 L28 78"/>
+      <path d="M52 50 H82"/>
+      <path d="M82 50 L90 44 M82 50 L90 56 M82 44 V56"/>
+    </symbol>
+
+    <symbol id="ic-tuning" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 78 H84 M20 78 V20" stroke-width="3"/>
+      <path d="M22 72 C38 72 42 28 52 28 C62 28 66 72 82 72"/>
+    </symbol>
+
+    <symbol id="ic-ring" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="50" cy="50" r="30"/>
+      <circle cx="50" cy="20" r="8" fill="currentColor" stroke="none"/>
+    </symbol>
+
+    <symbol id="ic-attractor-drift" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="50" cy="50" r="30"/>
+      <circle cx="32" cy="28" r="7" fill="currentColor" stroke="none"/>
+      <path d="M74 34 A30 30 0 0 1 78 56"/>
+      <path d="M78 56 L83 49 M78 56 L72 53"/>
+    </symbol>
+
+    <symbol id="ic-brain" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 52 C18 32 38 22 52 26 C72 20 86 34 82 50 C86 66 70 78 52 74 C34 78 20 70 20 52 Z"/>
+      <path d="M34 40 q8 6 0 12 M48 36 q8 6 0 12 M62 40 q8 6 0 12" stroke-width="3"/>
+      <circle cx="78" cy="54" r="6" fill="currentColor" stroke="none"/>
+    </symbol>
+
+    <symbol id="ic-observer" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="46" cy="50" r="28"/>
+      <path d="M88 50 H58 M64 44 L58 50 L64 56"/>
+      <circle cx="46" cy="50" r="5" fill="currentColor" stroke="none"/>
+    </symbol>
+
+    <symbol id="ic-prior" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 78 H84" stroke-width="3"/>
+      <path d="M20 76 C34 76 36 30 48 30 C58 30 66 64 80 74"/>
+    </symbol>
+
+    <symbol id="ic-gaussian" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 76 H84" stroke-width="3"/>
+      <path d="M20 74 C36 74 40 28 50 28 C60 28 64 74 80 74"/>
+    </symbol>
+
+    <symbol id="ic-dog" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 50 H84 M50 20 V80" stroke-width="3"/>
+      <path d="M18 50 C30 30 44 30 50 50 C56 70 70 70 82 50"/>
+    </symbol>
+
+    <symbol id="ic-bias-curve" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 50 H84 M20 78 V22" stroke-width="3"/>
+      <path d="M22 58 Q42 36 52 50 Q62 62 80 40"/>
+    </symbol>
+
+    <symbol id="ic-arrow" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M50 16 V80 M34 64 L50 82 L66 64"/>
+    </symbol>
+
+    <symbol id="ic-arrow-curved" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M34 26 C12 46 12 70 36 78"/>
+      <path d="M36 78 L26 74 M36 78 L32 68"/>
+    </symbol>
+  </defs>
+
+  <rect x="0" y="0" width="600" height="600" fill="#ffffff"/>
+  <text x="300" y="30" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#1E3A5F">comp-neuro graphical-abstract icon library</text>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#444" text-anchor="middle" color="#1E3A5F">
+    <use href="#ic-grating" x="40" y="55" width="60" height="60"/><text x="70" y="128">ic-grating</text>
+    <use href="#ic-grating-pair" x="160" y="55" width="60" height="60"/><text x="190" y="128">ic-grating-pair</text>
+    <use href="#ic-fixation" x="280" y="55" width="60" height="60"/><text x="310" y="128">ic-fixation</text>
+    <use href="#ic-eye" x="400" y="55" width="60" height="60"/><text x="430" y="128">ic-eye</text>
+    <use href="#ic-dial" x="520" y="55" width="60" height="60"/><text x="550" y="128">ic-dial</text>
+
+    <use href="#ic-confidence-arc" x="40" y="155" width="60" height="60"/><text x="70" y="228">ic-confidence-arc</text>
+    <use href="#ic-decision" x="160" y="155" width="60" height="60"/><text x="190" y="228">ic-decision</text>
+    <use href="#ic-clock" x="280" y="155" width="60" height="60"/><text x="310" y="228">ic-clock</text>
+    <use href="#ic-neuron" x="400" y="155" width="60" height="60"/><text x="430" y="228">ic-neuron</text>
+    <use href="#ic-tuning" x="520" y="155" width="60" height="60"/><text x="550" y="228">ic-tuning</text>
+
+    <use href="#ic-ring" x="40" y="255" width="60" height="60"/><text x="70" y="328">ic-ring</text>
+    <use href="#ic-attractor-drift" x="160" y="255" width="60" height="60"/><text x="190" y="328">ic-attractor-drift</text>
+    <use href="#ic-brain" x="280" y="255" width="60" height="60"/><text x="310" y="328">ic-brain</text>
+    <use href="#ic-observer" x="400" y="255" width="60" height="60"/><text x="430" y="328">ic-observer</text>
+    <use href="#ic-prior" x="520" y="255" width="60" height="60"/><text x="550" y="328">ic-prior</text>
+
+    <use href="#ic-gaussian" x="40" y="355" width="60" height="60"/><text x="70" y="428">ic-gaussian</text>
+    <use href="#ic-dog" x="160" y="355" width="60" height="60"/><text x="190" y="428">ic-dog</text>
+    <use href="#ic-bias-curve" x="280" y="355" width="60" height="60"/><text x="310" y="428">ic-bias-curve</text>
+    <use href="#ic-arrow" x="400" y="355" width="60" height="60"/><text x="430" y="428">ic-arrow</text>
+    <use href="#ic-arrow-curved" x="520" y="355" width="60" height="60"/><text x="550" y="428">ic-arrow-curved</text>
+  </g>
+</svg>

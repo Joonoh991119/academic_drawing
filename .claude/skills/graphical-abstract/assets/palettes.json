@@ -1,0 +1,44 @@
+{
+  "_note": "Palettes for comp-neuro graphical abstracts. Use <=3 hues + 1 accent. Pair color with shape (never color-alone). All are print/CMYK-safe and chosen for colorblind legibility where noted.",
+  "cell": {
+    "_desc": "Cell Press house feel: deep navy structure + a single red accent for the finding.",
+    "ink": "#1E3A5F",
+    "stimulus": "#2C6E9B",
+    "response": "#5BA199",
+    "accent": "#EE0000",
+    "muted": "#9AA7B2",
+    "bg": "#FFFFFF",
+    "text": "#1A1A1A"
+  },
+  "nature": {
+    "_desc": "Nature/NN muted editorial palette.",
+    "ink": "#222629",
+    "stimulus": "#386cb0",
+    "response": "#7fbf7b",
+    "accent": "#d7301f",
+    "muted": "#9e9ac8",
+    "bg": "#FFFFFF",
+    "text": "#1A1A1A"
+  },
+  "okabe_ito": {
+    "_desc": "Okabe-Ito colorblind-safe categorical palette (use when >2 categories must be distinguished by color).",
+    "black": "#000000",
+    "orange": "#E69F00",
+    "skyblue": "#56B4E9",
+    "green": "#009E73",
+    "yellow": "#F0E442",
+    "blue": "#0072B2",
+    "vermillion": "#D55E00",
+    "purple": "#CC79A7"
+  },
+  "preview_class_map": {
+    "_desc": "When porting a publication hue to the Claude show_widget preview dialect, map to these dark-mode-safe c-* classes.",
+    "ink": "c-gray",
+    "stimulus": "c-blue",
+    "response": "c-teal",
+    "accent": "c-red",
+    "muted": "c-gray",
+    "prior": "c-purple",
+    "finding": "c-amber"
+  }
+}

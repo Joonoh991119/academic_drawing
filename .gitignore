@@ -1,0 +1,11 @@
+# runtime / generated artifacts
+_workspace/
+__pycache__/
+*.pyc
+.DS_Store
+# generated QC reports (regenerate on each run)
+*.contrast.json
+*.overlap.json
+*.equation.json
+*.stylelint.json
+*_BEFORE.png

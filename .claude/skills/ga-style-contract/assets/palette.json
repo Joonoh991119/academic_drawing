@@ -1,0 +1,71 @@
+{
+  "_doc": "SINGLE SOURCE OF TRUTH for color, citation, and label mapping across the whole Academic_Drawing project. Every skill/agent references tokens by NAME (ink, cond_a, accent, ...), never by raw hex. To restyle the entire project, edit hex values HERE only. Diagram/structural elements use the muted `structural` set; plotted DATA series use the Okabe-Ito `data_series` set (colorblind-safe for >2 categories).",
+  "version": 1,
+  "max_colors_per_slide": 5,
+
+  "structural": {
+    "_desc": "Muted Nature/Cell-toned diagram + layout colors. At most 5 hues coexist on one slide/panel (paper/bg/text do not count toward the 5).",
+    "ink":     { "hex": "#22303C", "role": "primary lines, outlines, primary structure, headings on light" },
+    "neutral": { "hex": "#8A97A3", "role": "secondary / de-emphasized structure, gridlines, captions, baseline" },
+    "cond_a":  { "hex": "#00A087", "role": "condition A / primary entity / stimulus  (NPG teal)" },
+    "cond_b":  { "hex": "#3C5488", "role": "condition B / contrast entity / response (NPG navy)" },
+    "accent":  { "hex": "#E64B35", "role": "THE single finding/innovation highlight (NPG coral) — use sparingly, <=1 emphasized region per panel, always paired with weight/shape" },
+    "paper":   { "hex": "#FBFAF7", "role": "graphical-abstract background (warm white)" },
+    "bg":      { "hex": "#FFFFFF", "role": "slide / plot background" },
+    "text":    { "hex": "#1A1A1A", "role": "body text on light" }
+  },
+
+  "data_series": {
+    "_desc": "MUTED Nature/Cell-toned categorical palette for PLOTTED data. The first two entries ARE cond_a and cond_b, so a 2-condition plot matches the diagram exactly (same muted blue/terracotta in the figure and the abstract); entries 3+ add more muted hues for additional unnamed levels. These are TONED-DOWN on purpose — do NOT substitute bright Okabe-Ito here. CVD safety comes from the MANDATORY redundant coding (marker shape + line type + direct label, see structural rules), not from saturated color. Consumed by matplotlib via academic_mpl.py (apply_style sets this as the prop_cycle).",
+    "series": ["#00A087", "#3C5488", "#4DBBD5", "#F39B7F", "#8491B4", "#91D1C2"],
+    "names":  ["teal (cond_a)", "navy (cond_b)", "cyan", "salmon", "periwinkle", "mint"],
+    "_okabe_ito_optin": {
+      "_desc": "Bright Okabe-Ito set, available ONLY if a specific figure has many (>4) unnamed categories that must be maximally CVD-separable AND the operator opts in. Not the default; it breaks the toned-down look.",
+      "series": ["#0072B2", "#D55E00", "#009E73", "#CC79A7", "#56B4E9", "#E69F00"]
+    }
+  },
+
+  "journal_presets": {
+    "_desc": "Real journal figure palettes (from the ggsci R package, derived from actual Nature/Science/Lancet/NEJM/JAMA figures). To restyle the whole project: set `active_preset` and copy that preset's first colors into structural.cond_a/cond_b/accent and into data_series.series. These are the 'scientific palettes' to choose from instead of the generic matplotlib blue/orange.",
+    "active_preset": "npg",
+    "npg":    { "_name": "Nature Publishing Group", "colors": ["#E64B35", "#4DBBD5", "#00A087", "#3C5488", "#F39B7F", "#8491B4", "#91D1C2", "#7E6148", "#B09C85", "#DC0000"] },
+    "aaas":   { "_name": "Science / AAAS",          "colors": ["#3B4992", "#EE0000", "#008B45", "#631879", "#008280", "#BB0021", "#5F559B", "#A20056", "#808180", "#1B1919"] },
+    "lancet": { "_name": "The Lancet",              "colors": ["#00468B", "#ED0000", "#42B540", "#0099B4", "#925E9F", "#FDAF91", "#AD002A", "#ADB6B6", "#1B1919"] },
+    "nejm":   { "_name": "New England J. Medicine",  "colors": ["#BC3C29", "#0072B5", "#E18727", "#20854E", "#7876B1", "#6F99AD", "#FFDC91", "#EE4C97"] },
+    "jama":   { "_name": "JAMA",                    "colors": ["#374E55", "#DF8F44", "#00A1D5", "#B24745", "#79AF97", "#6A6599", "#80796B"] }
+  },
+
+  "label_map": {
+    "_desc": "Project-wide FIXED mapping of each experimental label/condition/emphasis to a structural token. Fill this in once per project (Director owns it) and reuse identically across abstract -> slides -> manuscript. The keys below are a TEMPLATE — replace with the real conditions before producing deliverables.",
+    "_template": {
+      "condition_1": "cond_a",
+      "condition_2": "cond_b",
+      "key_finding": "accent",
+      "baseline":    "neutral"
+    },
+    "low_var_context":  "cond_a",
+    "high_var_context": "cond_b",
+    "adaptive_prior":   "accent",
+    "veridical":        "neutral"
+  },
+
+  "citation": {
+    "_desc": "Short at-a-glance attribution shown on figures/slides (NOT a full reference list).",
+    "format": "{First} et al., {YYYY}",
+    "rules": {
+      "one_author":   "{First}, {YYYY}",
+      "two_authors":  "{First} & {Second}, {YYYY}",
+      "three_plus":   "{First} et al., {YYYY}",
+      "unpublished":  "{First} et al., in prep",
+      "preprint":     "{First} et al., {YYYY}, preprint"
+    },
+    "examples": ["Kim, 2024", "Kim & Lee, 2024", "Kim et al., 2024", "Kim et al., in prep"]
+  },
+
+  "typography": {
+    "_desc": "One sans-serif family across the whole project. Arial/Helvetica are confirmed present and are the Cell/Nature default.",
+    "family": "Arial, Helvetica, sans-serif",
+    "case": "sentence case (not Title Case, not ALL CAPS except acronyms)",
+    "font_minima_pt": { "cell": 8.0, "nature": 5.0, "slide_body": 18, "slide_title": 28 }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "scientific-figure",
+  "owner": "neuromechanist",
+  "repo": "research-skills",
+  "path": "plugins/figures/skills/scientific-figure",
+  "branch": "main",
+  "sha": "df7eb9ae2df6ede58dc287c3d9a3912dea8e0ddf",
+  "source": "manual"
+}

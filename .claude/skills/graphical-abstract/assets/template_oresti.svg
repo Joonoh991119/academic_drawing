@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1500" viewBox="0 0 1100 1500" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <clipPath id="clip-grating"><circle cx="50" cy="50" r="38"/></clipPath>
+    <symbol id="ic-grating" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="50" cy="50" r="38"/>
+      <g clip-path="url(#clip-grating)" transform="rotate(30 50 50)" stroke-width="5"><path d="M22 -20V120 M34 -20V120 M46 -20V120 M58 -20V120 M70 -20V120 M82 -20V120"/></g>
+    </symbol>
+    <symbol id="ic-clock" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="50" cy="52" r="32"/><path d="M50 52 V30 M50 52 L66 60"/><path d="M40 14 H60" stroke-width="5"/>
+    </symbol>
+    <symbol id="ic-dial" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="50" cy="50" r="36"/><path d="M50 50 L73 31"/><circle cx="50" cy="50" r="4" fill="currentColor" stroke="none"/><path d="M50 14V22 M50 78V86 M14 50H22 M78 50H86"/>
+    </symbol>
+    <symbol id="ic-attractor-drift" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="50" cy="50" r="30"/><circle cx="32" cy="28" r="7" fill="currentColor" stroke="none"/><path d="M74 34 A30 30 0 0 1 78 56"/><path d="M78 56 L83 49 M78 56 L72 53"/>
+    </symbol>
+    <symbol id="ic-dog" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 50 H84 M50 20 V80" stroke-width="3"/><path d="M18 50 C30 30 44 30 50 50 C56 70 70 70 82 50"/>
+    </symbol>
+  </defs>
+
+  <rect x="0" y="0" width="1100" height="1500" fill="#FFFFFF"/>
+
+  <text x="550" y="78" text-anchor="middle" font-size="38" font-weight="bold" fill="#1E3A5F">Orientation estimates drift toward the recent past</text>
+
+  <!-- ACT A -->
+  <rect x="40" y="120" width="14" height="40" fill="#1E3A5F"/>
+  <text x="68" y="151" font-size="34" font-weight="bold" fill="#1E3A5F">1 · Task — estimate a remembered orientation</text>
+  <g color="#2C6E9B"><use href="#ic-grating" x="190" y="220" width="150" height="150"/></g>
+  <g color="#5BA199"><use href="#ic-clock" x="475" y="220" width="150" height="150"/></g>
+  <g color="#2C6E9B"><use href="#ic-dial" x="760" y="220" width="150" height="150"/></g>
+  <g fill="none" stroke="#9AA7B2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M348 295 H468"/><path d="M456 286 L470 295 L456 304"/>
+    <path d="M633 295 H758"/><path d="M746 286 L760 295 L746 304"/>
+  </g>
+  <g font-size="32" fill="#1A1A1A" text-anchor="middle">
+    <text x="265" y="414">oriented grating (0.4 s)</text>
+    <text x="550" y="414">delay (1 s)</text>
+    <text x="835" y="414">report on a dial</text>
+  </g>
+
+  <g fill="none" stroke="#1E3A5F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M550 440 V508"/><path d="M536 492 L550 510 L564 492"/>
+  </g>
+
+  <!-- ACT B -->
+  <rect x="40" y="548" width="14" height="40" fill="#1E3A5F"/>
+  <text x="68" y="579" font-size="34" font-weight="bold" fill="#1E3A5F">2 · Mechanism — a ring attractor pulled by history</text>
+  <g color="#1E3A5F"><use href="#ic-attractor-drift" x="250" y="600" width="180" height="180"/></g>
+  <g color="#2C6E9B"><use href="#ic-grating" x="720" y="620" width="140" height="140"/></g>
+  <g fill="none" stroke="#9AA7B2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M712 692 C620 752 520 752 440 700"/><path d="M452 690 L436 701 L452 712"/>
+  </g>
+  <g font-size="32" fill="#1A1A1A" text-anchor="middle">
+    <text x="340" y="812">current state drifts toward the prior estimate</text>
+    <text x="790" y="790">previous trial</text>
+  </g>
+
+  <g fill="none" stroke="#1E3A5F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M550 838 V906"/><path d="M536 890 L550 908 L564 890"/>
+  </g>
+
+  <!-- ACT C (finding) -->
+  <rect x="40" y="946" width="14" height="40" fill="#EE0000"/>
+  <text x="68" y="977" font-size="34" font-weight="bold" fill="#EE0000">3 · Finding — attractive serial dependence</text>
+  <g color="#EE0000"><use href="#ic-dog" x="330" y="1000" width="440" height="360"/></g>
+  <g font-size="32" fill="#1A1A1A">
+    <text x="360" y="1024">estimation error (°)</text>
+    <text x="550" y="1392" text-anchor="middle">relative orientation: previous − current (°)</text>
+  </g>
+  <text x="550" y="1452" text-anchor="middle" font-size="42" font-weight="bold" fill="#1E3A5F">errors bend <tspan fill="#EE0000">toward</tspan> the previous orientation</text>
+</svg>
