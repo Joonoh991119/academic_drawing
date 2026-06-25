@@ -28,6 +28,10 @@ You do not judge aesthetics (that's the design-reviewer) — you produce repeata
    - A `text-overflow-est` WARN from the lint MUST be vision-confirmed: if text truly clips/spills,
      report it as a **FAIL** (text-spill) so the Director routes a fix — never pass a deck on an
      unconfirmed overflow WARN.
+   - **Reconstruction mode** (rebuilding an existing deck): run `python3
+     .claude/skills/overlap-qc/scripts/reconstruction_diff.py ORIG.pptx RECON.pptx` and require the
+     slide-mapping manifest to DISPOSITION every figure/table/slide delta it reports; a figure or table
+     drop the manifest can't account for (decorative / rebuilt-as-grid) is a content-loss FAIL.
 3. **Equations:** if `_workspace/eqs.json` exists, run
    `python3 .claude/skills/overlap-qc/scripts/equation_qc.py _workspace/eqs.json` and include its
    verdict (broken markup / undefined symbol) in the QC JSON before the reviewers see it.

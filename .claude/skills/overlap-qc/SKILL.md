@@ -73,6 +73,18 @@ overflow, text/figure overlap, contrast, leftover placeholder strings, ≤5-colo
 fix before ship; never ship a deck on an unconfirmed overflow WARN.** `grep` the source for
 `PLACEHOLDER`. The cheap mechanical lint runs on every slide; the expensive vision pass does not.
 
+**Step 3 — reconstruction fidelity (only when rebuilding an EXISTING deck):**
+```
+python3 .claude/skills/overlap-qc/scripts/reconstruction_diff.py ORIGINAL.pptx RECON.pptx --json recon_diff.json
+```
+Counts slides / pictures / tables in both decks and surfaces every delta as a WARN — the deterministic
+backstop for the slide-builder fidelity rules, because a one-shot rebuild silently drops figures,
+collapses a table to prose, or re-authors the slide count (and may even self-report "all figures kept"
+while the counts say otherwise). All WARN by design: it can't tell a DATA figure from a DECORATIVE
+icon, so each delta must be DISPOSITIONED in the orig→recon manifest (this drop = decorative; that
+table = rebuilt as a grid; +N slides = listed + justified). A figure/table drop the manifest can't
+account for is a real content loss → fix before ship.
+
 ## Equations
 Four-stage gate (see `ga-style-contract` §4). The author emits `_workspace/eqs.json`
 (`[{id, latex, declared_symbols, reference_latex?}]`); then run the deterministic check:
@@ -88,3 +100,5 @@ appropriateness given `eqs.qc.json`, vision = legibility). Avoid CodeCogs and th
 - `scripts/overlap_check.py` — headless-Chrome geometry measurement + rectangle-intersection collision detection.
 - `scripts/pptx_style_lint.py` — deterministic deck palette / label-color / ≤N-hue / font / token-overload gate + a heuristic text-overflow estimate (WARN — the rendered vision pass confirms it) (python-pptx).
 - `scripts/equation_qc.py` — mathtext parse + sympy symbolic/undefined-symbol gate for equations.
+- `scripts/reconstruction_diff.py` — deterministic slides/pictures/tables count diff (original vs
+  reconstruction) so no content drop is silent (python-pptx; deck-rebuild mode only).
