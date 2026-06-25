@@ -165,6 +165,14 @@ For each, emit a clearly marked placeholder rectangle: dashed `neutral` border, 
 `[PLACEHOLDER — Fig 2: serial-dependence bias, x: Δθ, y: estimation bias]`, and the intended
 dimensions. Never replace a placeholder with fabricated data to "complete" the figure.
 
+**A schematic must not overclaim what the data shows.** A schematic bar/curve standing in for a real,
+quantified comparison must be FAITHFUL to the actual effect direction AND magnitude — a near-tie (e.g.
+Δ ≈ −10 elpd, PXP ≈ 0.6) must LOOK like a near-tie, never a dramatic gap. Labeling a panel "schematic"
+does NOT license drawing magnitudes the data contradicts: the reader sees the bars, not the caveat. If
+the real magnitudes aren't in hand, draw them equal/neutral or reserve a placeholder — never an
+invented gap. (A logic/design reviewer should flag a schematic whose visual effect size exceeds what
+the results support.)
+
 ## Files
 - `assets/palette.json` — the locked palette, label map, citation rules, typography. Edit hex here only.
 - `scripts/swatch.py` — render `palette_swatch.png` (swatches + token names + current label map) for human sign-off.
