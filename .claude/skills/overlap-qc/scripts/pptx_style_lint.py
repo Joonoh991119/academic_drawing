@@ -228,13 +228,15 @@ def lint(prs, P):
     for lab, meta in P.get("label_map", {}).items():
         tok_labels.setdefault(meta["token"], []).append(lab)
     for tok, labs in tok_labels.items():
-        if len(labs) > 1:
+        if len(labs) > 1 and tok != "emphasis":  # 'emphasis' legitimately marks many words, not a condition
             findings.append({
                 "severity": "FAIL" if tok == "accent" else "WARN", "kind": "token-overload",
                 "slide": 0, "where": "label_map", "hex": None,
                 "detail": (f"token '{tok}' is assigned to {len(labs)} labels ({', '.join(labs)}); "
                            + ("'accent' must mark the single finding only — never a condition color"
-                              if tok == "accent" else "each token should carry one meaning project-wide"))})
+                              if tok == "accent" else "each token should carry one meaning project-wide "
+                              "(for typographic emphasis of ordinary words use bold/weight, not a "
+                              "condition color; or define a dedicated 'emphasis' token, which is exempt)"))})
 
     for s_idx, slide in enumerate(prs.slides, start=1):
         slide_hues = set()  # distinct structural RGB hexes seen on this slide (for the budget)

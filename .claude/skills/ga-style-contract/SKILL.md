@@ -48,6 +48,12 @@ so it inherits Arial + the muted prop-cycle deterministically (no DejaVu fallbac
   **each token carries ONE meaning project-wide**, and condition→color is fixed across *all* slides
   (don't let `cond_a` mean condition A on one slide and something else on another). `pptx_style_lint`
   flags a `label_map` that overloads a token.
+- **Emphasis is weight, not color.** To emphasize ordinary (non-condition) words, use **bold/weight**
+  (or italic) — never a structural/condition color token or `accent`. Color is reserved for semantic
+  structure; reusing a condition color to highlight prose is exactly what `token-overload` flags. When
+  reconstructing a deck that color-highlights for emphasis, convert it to bold. If a true highlight is
+  unavoidable, define a single dedicated `emphasis` token (it may mark many words and is exempt from
+  the one-meaning rule) — but prefer weight, to keep the palette sparse and on-brand.
 - **Never color-alone (redundant coding).** Every color distinction is *also* carried by at least one
   of: marker **shape**, line **type**, **position**, or a **direct label**. Never encode meaning by
   red-vs-green alone. This keeps the figure legible in grayscale and for CVD readers. (`accent` vs
