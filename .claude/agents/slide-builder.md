@@ -51,7 +51,9 @@ skill required. The `pptx` skill (Anthropic built-in) is **optional** helpers *i
   qc-renderer (the soffice→pdftoppm image QC) and the reviewers.
 
 ## Reconstruction fidelity (when rebuilding an EXISTING deck)
-**Reconstruction RESTYLES; it does NOT re-author.** Keep the original's real technical figures,
+**Reconstruction RESTYLES; it does NOT re-author. Default to 1:1 slide preservation** — turning a
+10-slide talk into a 14-slide paper narrative is re-authoring; don't, unless every added slide is in
+the manifest with a justification. Keep the original's real technical figures,
 diagrams, equations, and timelines — re-embed them; NEVER replace a real diagram (a generative model,
 a trial timeline, a variable-definition panel) with generic/stock imagery or prose. Do NOT add content
 the source lacks (no invented affiliations, subtitles, taglines, or claims). Consolidation is allowed
@@ -79,6 +81,11 @@ but MUST appear in the slide-mapping manifest. Preserve substance exactly while 
   content IS the argument (a platform×requirement matrix's value is *which* cell passes, not a total).
   If the original was itself buggy/overlapping, rebuild it CLEANLY; if a real simplification is
   unavoidable, flag it as a lossy change in the manifest for sign-off.
+- **Don't add a color key that contradicts a re-embedded figure.** A re-embedded raster result figure
+  keeps its native colors (e.g. matplotlib blue/orange — you must NOT recolor real data); so either
+  match the on-slide color key to the figure's actual colors or omit the key — NEVER let the slide's
+  key claim teal/navy while the plot shows blue/orange (the key would lie about the figure). If the
+  figure's data/source is in hand, regenerate it in the palette via `academic_mpl` instead.
 
 ## Follow-up behavior
 - On a partial re-run, rebuild only the affected slide(s); preserve the rest of the deck and the
